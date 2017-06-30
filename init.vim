@@ -17,10 +17,18 @@ if dein#load_state('/Users/Ryosuke/.config/nvim/dein')
   " Add or remove your plugins here:
   call dein#add('Shougo/neosnippet.vim')
   call dein#add('Shougo/neosnippet-snippets')
+  "カラースキーム
   call dein#add('tomasr/molokai')
+  "ファイル遷移
   call dein#add('Shougo/denite.nvim')
+  "deniteの前提プラグイン
   call dein#add('Shougo/vimproc.vim')
+  "gitプラグイン
   call dein#add('tpope/vim-fugitive')
+  "Rubyなど向けにendを自動挿入
+  call dein#add('tpope/vim-endwise')
+  "閉じ括弧、2個目のクォーテーションを自動入力
+  call dein#add('cohama/lexima.vim')
 
   " You can specify revision/branch/tag.
   call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
@@ -69,6 +77,19 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=0
 set expandtab
+
+if has("autocmd")
+    "ファイルタイプの検索を有効にする
+    filetype plugin on
+    "ファイルタイプに合わせたインデントを利用
+    filetype indent on
+    "sw=softtabstop, sts=shiftwidth, ts=tabstop, et=expandtabの略
+    autocmd FileType html setlocal sw=0 sts=2 ts=2 et
+    autocmd FileType ruby setlocal sw=0 sts=2 ts=2 et
+    autocmd FileType scss setlocal sw=0 sts=2 ts=2 et
+    autocmd FileType css  setlocal sw=0 sts=2 ts=2 et
+    autocmd FileType erb  setlocal sw=0 sts=2 ts=2 et
+endif
 
 "検索文字列をハイライトする↲
 set hlsearch
