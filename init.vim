@@ -51,6 +51,11 @@ syntax enable
 
 "End dein Scripts-------------------------
 
+"Key mapping-----------------------------
+inoremap <C-r> <ESC>o
+
+"End key mapping-------------------------
+
 " 不可視文字を表示
 set list
 " 不可視文字の表示記号指定
@@ -60,7 +65,6 @@ set listchars=tab:▸\ ,eol:↲,extends:❯,precedes:❮
 set backspace=indent,eol,start
 "行頭行末の左右移動で行をまたぐ
 set whichwrap=b,s,h,l,<,>,[,]
-
 "カラースキーマを設定
 colorscheme molokai
 " 256色¬
@@ -91,6 +95,7 @@ if has("autocmd")
   autocmd FileType scss setlocal sw=0 sts=2 ts=2 et
   autocmd FileType css  setlocal sw=0 sts=2 ts=2 et
   autocmd FileType erb  setlocal sw=0 sts=2 ts=2 et
+  autocmd FileType vim  setlocal sw=0 sts=2 ts=2 et
 endif
 
 "検索文字列をハイライトする↲
@@ -136,3 +141,7 @@ set sidescrolloff=16
 set sidescroll=1
 "マウス無効
 set mouse=
+"カレント行をハイライト
+set cursorline
+"アンダーラインを引く
+highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
