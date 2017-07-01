@@ -1,3 +1,8 @@
-*.py[cod]
+lib/*
 doc/tags
-.cache
+*.obj
+*.o
+*.so
+*.dll
+*.swp
+*~

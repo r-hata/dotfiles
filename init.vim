@@ -29,6 +29,8 @@ if dein#load_state('/Users/Ryosuke/.config/nvim/dein')
   call dein#add('cohama/lexima.vim')
   "ステータスラインの表示を強化
   call dein#add('itchyny/lightline.vim')
+  "行末スペースの可視化
+  call dein#add('bronson/vim-trailing-whitespace')
 
   " You can specify revision/branch/tag.
   call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
@@ -118,6 +120,7 @@ set noerrorbells
 
 "コマンドラインモードでTABキーによるファイル名補完を有効にする
 set wildmenu wildmode=list:longest,full
+
 "コマンドラインの履歴を10000件保存する
 set history=10000
 
