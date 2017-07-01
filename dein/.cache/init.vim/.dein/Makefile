@@ -1,32 +1,55 @@
-PATH := ./vim-themis/bin:$(PATH)
-export THEMIS_VIM  := nvim
-export THEMIS_ARGS := -e -s --headless
-export THEMIS_HOME := ./vim-themis
+ifeq ($(OS),Windows_NT)
+    # Need to figure out if Cygwin/Mingw is installed
+    SYS := $(shell gcc -dumpmachine)
+    ifeq ($(findstring cygwin, $(SYS)),cygwin)
+        PLATFORM = cygwin
+    endif
+    ifeq ($(findstring mingw, $(SYS)),mingw)
+        ifeq ($(findstring x86_64, $(SYS)),x86_64)
+            PLATFORM = mingw64
+        else
+            PLATFORM = mingw32
+        endif
+    endif
+else
+    # Grab the output of `uname -s` and switch to set the platform
+    UNAME_S := $(shell uname -s)
+    ifeq ($(UNAME_S),Linux)
+        PLATFORM = unix
+    endif
+    ifeq ($(UNAME_S),FreeBSD)
+        MAKE = make # BSD Make
+        PLATFORM = bsd
+    endif
+    ifeq ($(UNAME_S),DragonFly)
+        MAKE = make # BSD Make
+        PLATFORM = bsd
+    endif
+    ifeq ($(UNAME_S),NetBSD)
+        MAKE = make # BSD Make
+        PLATFORM = bsd
+    endif
+    ifeq ($(UNAME_S),OpenBSD)
+        MAKE = make # BSD Make
+        PLATFORM = bsd
+    endif
+    ifeq ($(UNAME_S),Darwin)
+        PLATFORM = mac
+    endif
+    ifeq ($(UNAME_S),SunOS)
+        PLATFORM = sunos
+    endif
+endif
 
+# Verify that the PLATFORM was detected
+ifndef PLATFORM
+    $(error Autodetection of platform failed, please use appropriate .mak file)
+endif
 
-install: vim-themis
-	pip install neovim --upgrade
-	pip install pytest --upgrade
-	pip install flake8 --upgrade
-	pip install mypy-lang --upgrade
-	pip install vim-vint --upgrade
+# Invoke the platform specific make files
+all:
+	$(MAKE) -f make_$(PLATFORM).mak
 
-lint:
-	vint --version
-	vint plugin
-	vint autoload
-	flake8 --version
-	flake8 rplugin/python3/denite
-	mypy --version
-	mypy --silent-imports rplugin/python3/denite
+clean:
+	$(MAKE) -f make_$(PLATFORM).mak clean
 
-test:
-	themis --version
-	themis test/autoload/*
-	pytest --version
-	pytest
-
-vim-themis:
-	git clone https://github.com/thinca/vim-themis vim-themis
-
-.PHONY: install lint test

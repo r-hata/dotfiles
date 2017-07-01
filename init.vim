@@ -27,6 +27,8 @@ if dein#load_state('/Users/Ryosuke/.config/nvim/dein')
   call dein#add('tpope/vim-fugitive')
   "閉じ括弧、2個目のクォーテーションを自動入力
   call dein#add('cohama/lexima.vim')
+  "ステータスラインの表示を強化
+  call dein#add('itchyny/lightline.vim')
 
   " You can specify revision/branch/tag.
   call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
