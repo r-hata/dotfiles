@@ -1,26 +1,37 @@
-" dein Scripts-----------------------------
+"dein Scripts-----------------------------
 if &compatible
   set nocompatible               " Be iMproved
 endif
 
 " Required:
-set runtimepath+=/Users/Ryosuke/.config/nvim/dein/repos/github.com/Shougo/dein.vim
+if has('unix')
+  set runtimepath+=/home/ryosuke/.config/nvim/./repos/github.com/Shougo/dein.vim
+  let p = '/home/ryosuke/.config/nvim/.'
+endif
+if has('mac')
+  set runtimepath+=/Users/Ryosuke/.config/nvim/dein/repos/github.com/Shougo/dein.vim
+  let p = '/Users/Ryosuke/.config/nvim/dein'
+endif
 
 " Required:
-if dein#load_state('/Users/Ryosuke/.config/nvim/dein')
-  call dein#begin('/Users/Ryosuke/.config/nvim/dein')
+if dein#load_state(p)
+  call dein#begin(p)
 
   " Let dein manage dein
   " Required:
-  call dein#add('/Users/Ryosuke/.config/nvim/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add(p.'/repos/github.com/Shougo/dein.vim')
 
   " Add or remove your plugins here:
-  call dein#add('Shougo/neosnippet.vim')
-  call dein#add('Shougo/neosnippet-snippets')
+  if has('python3')
+    " 入力補助
+    call dein#add('Shougo/deoplete.nvim')
+    call dein#add('Shougo/neosnippet.vim')
+    call dein#add('Shougo/neosnippet-snippets')
+    " ファイル遷移
+    call dein#add('Shougo/denite.nvim')
+  endif
   " カラースキーム
   call dein#add('tomasr/molokai')
-  " ファイル遷移
-  call dein#add('Shougo/denite.nvim')
   " deniteの前提プラグイン
   call dein#add('Shougo/vimproc.vim')
   " gitプラグイン
@@ -33,25 +44,26 @@ if dein#load_state('/Users/Ryosuke/.config/nvim/dein')
   call dein#add('bronson/vim-trailing-whitespace')
   " カーソル移動高速化
   call dein#add('easymotion/vim-easymotion')
-
   " You can specify revision/branch/tag.
   call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+  " ctags自動更新
+  call dein#add('soramugi/auto-ctags.vim')
 
   " Required:
   call dein#end()
   call dein#save_state()
 endif
 
-"  Required:
+" Required:
 filetype plugin indent on
 syntax enable
 
-"  If you want to install not installed plugins on startup.
-" if dein#check_install()
-"   call dein#install()
-" endif
+" If you want to install not installed plugins on startup.
+"if dein#check_install()
+"  call dein#install()
+"endif
 
-" End dein Scripts-------------------------
+"End dein Scripts-------------------------
 
 " Key mapping-----------------------------
 inoremap <C-r> <ESC>o
@@ -68,6 +80,26 @@ noremap <C-n> :Denite -buffer-name=file file<CR>
 noremap <C-z> :Denite file_old<CR>
 " カレントディレクトリ
 noremap <C-c> :Denite file_rec<CR>
+" スニペット関連
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
 " End key mapping-------------------------
 
 "  不可視文字を表示
@@ -160,5 +192,13 @@ set cursorline
 " アンダーラインを引く
 hi clear CursorLine
 " python3の有効化
-let g:python3_host_prog = expand('/Users/Ryosuke/anaconda2/envs/python3/bin/python')
-
+if has('unix')
+  let g:python3_host_prog = expand('/usr/bin/python3')
+endif
+if has('mac')
+  let g:python3_host_prog = expand('/Users/Ryosuke/anaconda2/envs/python3/bin/python')
+endif
+" auto-ctagsを使ってファイル保存時にtagsファイルを更新
+let g:auto_ctags = 1
+" Use deoplete
+let g:deoplete#enable_at_startup = 1
