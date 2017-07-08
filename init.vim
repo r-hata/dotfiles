@@ -7,7 +7,7 @@ endif
 if has('mac')
   set runtimepath+=/Users/Ryosuke/.config/nvim/dein/repos/github.com/Shougo/dein.vim
   let p = '/Users/Ryosuke/.config/nvim/dein'
-elseif has('unix')
+elseif has('mac') == 0
   set runtimepath+=/home/ryosuke/.config/nvim/./repos/github.com/Shougo/dein.vim
   let p = '/home/ryosuke/.config/nvim/.'
 endif
@@ -175,7 +175,7 @@ hi clear CursorLine
 " python3の有効化
 if has('mac')
   let g:python3_host_prog = expand('/Users/Ryosuke/anaconda2/envs/python3/bin/python')
-elseif has('unix')
+elseif has('mac') == 0
   let g:python3_host_prog = expand('/usr/bin/python3')
 endif
 " auto-ctagsを使ってファイル保存時にtagsファイルを更新
