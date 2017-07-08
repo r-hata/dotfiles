@@ -1,18 +1,18 @@
+" python3の有効化
+if has('mac')
+  let g:python3_host_prog = expand('/Users/Ryosuke/anaconda2/envs/python3/bin/python')
+elseif has('unix')
+  let g:python3_host_prog = expand('/usr/bin/python3')
+endif
+
 "dein Scripts-----------------------------
 if &compatible
   set nocompatible               " Be iMproved
 endif
+set runtimepath+=~/.config/nvim/dein/repos/github.com/Shougo/dein.vim
 
-" Required:
-if has('mac')
-  set runtimepath+=/Users/Ryosuke/.config/nvim/dein/repos/github.com/Shougo/dein.vim
-  let p = '/Users/Ryosuke/.config/nvim/dein'
-elseif has('mac') == 0
-  set runtimepath+=/home/ryosuke/.config/nvim/./repos/github.com/Shougo/dein.vim
-  let p = '/home/ryosuke/.config/nvim/.'
-endif
+let p = '~/.config/nvim/dein'
 
-" Required:
 if dein#load_state(p)
   call dein#begin(p)
 
@@ -172,11 +172,5 @@ set mouse=
 set cursorline
 " アンダーラインを引く
 hi clear CursorLine
-" python3の有効化
-if has('mac')
-  let g:python3_host_prog = expand('/Users/Ryosuke/anaconda2/envs/python3/bin/python')
-elseif has('mac') == 0
-  let g:python3_host_prog = expand('/usr/bin/python3')
-endif
 " auto-ctagsを使ってファイル保存時にtagsファイルを更新
 let g:auto_ctags = 1
