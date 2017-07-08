@@ -4,13 +4,12 @@ if &compatible
 endif
 
 " Required:
-if has('unix')
-  set runtimepath+=/home/ryosuke/.config/nvim/./repos/github.com/Shougo/dein.vim
-  let p = '/home/ryosuke/.config/nvim/.'
-endif
 if has('mac')
   set runtimepath+=/Users/Ryosuke/.config/nvim/dein/repos/github.com/Shougo/dein.vim
   let p = '/Users/Ryosuke/.config/nvim/dein'
+else
+  set runtimepath+=/home/ryosuke/.config/nvim/./repos/github.com/Shougo/dein.vim
+  let p = '/home/ryosuke/.config/nvim/.'
 endif
 
 " Required:
@@ -174,11 +173,10 @@ set cursorline
 " アンダーラインを引く
 hi clear CursorLine
 " python3の有効化
-if has('unix')
-  let g:python3_host_prog = expand('/usr/bin/python3')
-endif
 if has('mac')
   let g:python3_host_prog = expand('/Users/Ryosuke/anaconda2/envs/python3/bin/python')
+else
+  let g:python3_host_prog = expand('/usr/bin/python3')
 endif
 " auto-ctagsを使ってファイル保存時にtagsファイルを更新
 let g:auto_ctags = 1
