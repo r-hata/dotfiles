@@ -24,8 +24,6 @@ if dein#load_state(p)
   " Add or remove your plugins here:
   if has('python3')
     " 入力補助
-    call dein#add('Shougo/deoplete.nvim')
-    call dein#add('Shougo/neosnippet.vim')
     call dein#add('Shougo/neosnippet-snippets')
     " ファイル遷移
     call dein#add('Shougo/denite.nvim')
@@ -48,6 +46,10 @@ if dein#load_state(p)
   call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
   " ctags自動更新
   call dein#add('soramugi/auto-ctags.vim')
+
+  " tomlファイル読み込み
+  let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/lazy.toml'
+  call dein#load_toml(s:toml_file)
 
   " Required:
   call dein#end()
@@ -80,26 +82,6 @@ noremap <C-n> :Denite -buffer-name=file file<CR>
 noremap <C-z> :Denite file_old<CR>
 " カレントディレクトリ
 noremap <C-c> :Denite file_rec<CR>
-" スニペット関連
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
 " End key mapping-------------------------
 
 "  不可視文字を表示
@@ -200,5 +182,3 @@ if has('mac')
 endif
 " auto-ctagsを使ってファイル保存時にtagsファイルを更新
 let g:auto_ctags = 1
-" Use deoplete
-let g:deoplete#enable_at_startup = 1
