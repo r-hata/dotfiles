@@ -20,6 +20,9 @@ if dein#load_state(p)
   " Required:
   call dein#add(p.'/repos/github.com/Shougo/dein.vim')
 
+  " You can specify revision/branch/tag.
+  call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+
   " Add or remove your plugins here:
   if has('python3')
     " 入力補助
@@ -41,8 +44,6 @@ if dein#load_state(p)
   call dein#add('bronson/vim-trailing-whitespace')
   " カーソル移動高速化
   call dein#add('easymotion/vim-easymotion')
-  " You can specify revision/branch/tag.
-  call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
   " ctags自動更新
   call dein#add('soramugi/auto-ctags.vim')
 
@@ -81,21 +82,39 @@ noremap <C-n> :Denite -buffer-name=file file<CR>
 noremap <C-z> :Denite file_old<CR>
 " カレントディレクトリ
 noremap <C-c> :Denite file_rec<CR>
+" ハイライトオフ
+nnoremap <ESC><ESC> :nohl<CR>
 " End key mapping-------------------------
 
-"  不可視文字を表示
+" lightline settings----------------------
+let g:lightline = {
+  \ 'colorscheme': 'wombat',
+  \ 'active': {
+  \   'left': [
+  \   [ 'mode', 'paste' ],
+  \   [ 'gitbranch', 'readonly', 'filename', 'modified' ]
+  \ ]
+  \ },
+  \ 'component_function': {
+  \   'gitbranch': 'fugitive#head',
+  \ }
+  \ }
+" End lightline settings------------------
+
+" 不可視文字を表示
 set list
-"  不可視文字の表示記号指定
+" 不可視文字の表示記号指定
 set listchars=tab:▸\ ,eol:↲,extends:❯,precedes:❮
 
 " Backspaceキーの影響範囲に制限を設けない
 set backspace=indent,eol,start
 " 行頭行末の左右移動で行をまたぐ
 set whichwrap=b,s,h,l,<,>,[,]
+
+" 256色
+set t_Co=256
 " カラースキーマを設定
 colorscheme molokai
-"  256色¬
-set t_Co=256¬
 
 " 行番号・ルーラーの表示
 set number
@@ -170,7 +189,6 @@ set sidescroll=1
 set mouse=
 " カレント行をハイライト
 set cursorline
-" アンダーラインを引く
-hi clear CursorLine
 " auto-ctagsを使ってファイル保存時にtagsファイルを更新
 let g:auto_ctags = 1
+
