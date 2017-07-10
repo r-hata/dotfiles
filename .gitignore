@@ -1,2 +1,18 @@
-dein/
+/* ignore all */
+/*
+/.*
 tags
+
+/* allow any */
+!README.md
+
+!/.config/
+/.config/*
+!/.config/nvim/
+/.config/nvim/dein/
+/.config/nvim/.cache/
+
+!/.vim/
+/.vim/*
+!/.vim/colors/
+!.vimrc
