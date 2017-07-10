@@ -46,7 +46,8 @@ if dein#load_state(p)
   call dein#add('easymotion/vim-easymotion')
   " ctags自動更新
   call dein#add('soramugi/auto-ctags.vim')
-
+  " コメント化/コメント解除
+  call dein#add('tpope/vim-commentary.git')
   " tomlファイル読み込み
   let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/lazy.toml'
   call dein#load_toml(s:toml_file)
