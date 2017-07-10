@@ -1,0 +1,9 @@
+[user]
+	name = Ryosuke Hata
+	email = rh.ts124@gmail.com
+[color]
+	ui = true
+[push]
+	default = simple
+[alias]
+    tr = log --graph --pretty='format:%C(yellow)%h%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset'

@@ -17,3 +17,5 @@ tags*
 /.vim/*
 !/.vim/colors/
 !.vimrc
+
+!.gitconfig
