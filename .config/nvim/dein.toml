@@ -18,23 +18,45 @@ hook_add = '''
 [[plugins]] # deniteの前提プラグイン
 repo = 'Shougo/vimproc.vim'
 
+[[plugins]] # neosnippetの前提プラグイン
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]] # ファイル選択
+repo = 'Shougo/denite.nvim'
+depends = ['vimproc.vim']
+hook_add = '''
+  " バッファ一覧
+  noremap <C-p> :Denite buffer<CR>
+  " ファイル一覧
+  noremap <C-n> :Denite -buffer-name=file file<CR>
+  " 最近使ったファイルの一覧
+  noremap <C-z> :Denite file_old<CR>
+  " カレントディレクトリ
+  noremap <C-c> :Denite file_rec<CR>
+  " ハイライトオフ
+  nnoremap <ESC><ESC> :nohl<CR>
+'''
+
 [[plugins]] # gitプラグイン
 repo = 'tpope/vim-fugitive'
 
 [[plugins]] # 閉じ括弧、2個目のクォーテーションを自動入力
 repo = 'cohama/lexima.vim'
 
-[[plugins]] # ステータスラインの表示を強化
-repo = 'itchyny/lightline.vim'
-
 [[plugins]] # 行末スペースの可視化
 repo = 'bronson/vim-trailing-whitespace'
 
 [[plugins]] # カーソル移動高速化
 repo = 'easymotion/vim-easymotion'
+hook_add = '''
+  map <Leader> <Plug>(easymotion-prefix)
+'''
 
 [[plugins]] # ctags自動更新
 repo = 'soramugi/auto-ctags.vim'
+hook_add = '''
+  let g:auto_ctags = 1
+'''
 
 [[plugins]] # コメント化/コメント解除
 repo = 'tpope/vim-commentary.git'
@@ -49,4 +71,22 @@ repo = 'Shougo/context_filetype.vim'
 [[plugins]] # toml syntax
 repo = 'cespare/vim-toml'
 on_ft = 'toml'
+
+[[plugins]] # ステータスラインの表示を強化
+repo = 'itchyny/lightline.vim'
+hook_add = '''
+  let g:lightline = {
+    \ 'colorscheme': 'wombat',
+    \ 'active': {
+    \   'left': [
+    \   [ 'mode', 'paste' ],
+    \   [ 'gitbranch', 'readonly', 'filename', 'modified' ]
+    \ ]
+    \ },
+    \ 'component_function': {
+    \   'gitbranch': 'fugitive#head',
+    \ }
+    \ }
+'''
+depends = ['vim-fugitive']
 

@@ -29,17 +29,15 @@ let &runtimepath = s:dein_repo_dir .",". &runtimepath
 let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/dein.toml'
 let s:lazy_toml_file = fnamemodify(expand('<sfile>'), ':h').'/lazy.toml'
 
-if dein#load_state(s:dein_dir)
-  call dein#begin(s:dein_dir)
-  " tomlファイル読み込み
-  call dein#load_toml(s:toml_file,      {'lazy': 0})
-  call dein#load_toml(s:lazy_toml_file, {'lazy': 1})
-  if has('python3')
-    call dein#add('Shougo/neosnippet-snippets')
-    call dein#add('Shougo/denite.nvim')
-  end
-  call dein#end()
-  call dein#save_state()
+if has('python3')
+  if dein#load_state(s:dein_dir)
+    call dein#begin(s:dein_dir)
+    " tomlファイル読み込み
+    call dein#load_toml(s:toml_file,      {'lazy': 0})
+    call dein#load_toml(s:lazy_toml_file, {'lazy': 1})
+    call dein#end()
+    call dein#save_state()
+  endif
 endif
 
 " Required:
@@ -55,37 +53,7 @@ endif
 
 " Key mapping-----------------------------
 inoremap <C-r> <ESC>o
-
-" easymotion modifiable
-map <Leader> <Plug>(easymotion-prefix)
-
-" denite起動時に使用するキーマップ
-" バッファ一覧
-noremap <C-p> :Denite buffer<CR>
-" ファイル一覧
-noremap <C-n> :Denite -buffer-name=file file<CR>
-" 最近使ったファイルの一覧
-noremap <C-z> :Denite file_old<CR>
-" カレントディレクトリ
-noremap <C-c> :Denite file_rec<CR>
-" ハイライトオフ
-nnoremap <ESC><ESC> :nohl<CR>
 " End key mapping-------------------------
-
-" lightline settings----------------------
-let g:lightline = {
-  \ 'colorscheme': 'wombat',
-  \ 'active': {
-  \   'left': [
-  \   [ 'mode', 'paste' ],
-  \   [ 'gitbranch', 'readonly', 'filename', 'modified' ]
-  \ ]
-  \ },
-  \ 'component_function': {
-  \   'gitbranch': 'fugitive#head',
-  \ }
-  \ }
-" End lightline settings------------------
 
 " 不可視文字を表示
 set list
@@ -173,6 +141,4 @@ set sidescroll=1
 set mouse=
 " カレント行をハイライト
 set cursorline
-" auto-ctagsを使ってファイル保存時にtagsファイルを更新
-let g:auto_ctags = 1
 
