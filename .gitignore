@@ -10,8 +10,6 @@ tags*
 /.config/*
 !/.config/nvim/
 /.config/nvim/.netrwhist
-/.config/nvim/dein/
-/.config/nvim/.cache/
 
 !/.vim/
 /.vim/*

@@ -6,53 +6,38 @@ elseif has('unix')
 endif
 
 "dein Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
+" Required:
+if !&compatible
+  set nocompatible
 endif
-set runtimepath+=~/.config/nvim/dein/repos/github.com/Shougo/dein.vim
 
-let p = '~/.config/nvim/dein'
+" reset augroup
+augroup MyAutoCmd
+  autocmd!
+augroup END
 
-if dein#load_state(p)
-  call dein#begin(p)
+" dein自体の自動インストール
+let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
+let s:dein_dir = s:cache_home . '/dein'
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+if !isdirectory(s:dein_repo_dir)
+  call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
+endif
+let &runtimepath = s:dein_repo_dir .",". &runtimepath
 
-  " Let dein manage dein
-  " Required:
-  call dein#add(p.'/repos/github.com/Shougo/dein.vim')
+" プラグイン読み込み＆キャッシュ作成
+let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/dein.toml'
+let s:lazy_toml_file = fnamemodify(expand('<sfile>'), ':h').'/lazy.toml'
 
-  " You can specify revision/branch/tag.
-  call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
-
-  " Add or remove your plugins here:
-  if has('python3')
-    " 入力補助
-    call dein#add('Shougo/neosnippet-snippets')
-    " ファイル遷移
-    call dein#add('Shougo/denite.nvim')
-  endif
-  " カラースキーム
-  call dein#add('tomasr/molokai')
-  " deniteの前提プラグイン
-  call dein#add('Shougo/vimproc.vim')
-  " gitプラグイン
-  call dein#add('tpope/vim-fugitive')
-  " 閉じ括弧、2個目のクォーテーションを自動入力
-  call dein#add('cohama/lexima.vim')
-  " ステータスラインの表示を強化
-  call dein#add('itchyny/lightline.vim')
-  " 行末スペースの可視化
-  call dein#add('bronson/vim-trailing-whitespace')
-  " カーソル移動高速化
-  call dein#add('easymotion/vim-easymotion')
-  " ctags自動更新
-  call dein#add('soramugi/auto-ctags.vim')
-  " コメント化/コメント解除
-  call dein#add('tpope/vim-commentary.git')
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir)
   " tomlファイル読み込み
-  let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/lazy.toml'
-  call dein#load_toml(s:toml_file)
-
-  " Required:
+  call dein#load_toml(s:toml_file,      {'lazy': 0})
+  call dein#load_toml(s:lazy_toml_file, {'lazy': 1})
+  if has('python3')
+    call dein#add('Shougo/neosnippet-snippets')
+    call dein#add('Shougo/denite.nvim')
+  end
   call dein#end()
   call dein#save_state()
 endif
@@ -62,9 +47,9 @@ filetype plugin indent on
 syntax enable
 
 " If you want to install not installed plugins on startup.
-"if dein#check_install()
-"  call dein#install()
-"endif
+if has('vim_starting') && dein#check_install()
+  call dein#install()
+endif
 
 "End dein Scripts-------------------------
 
@@ -114,8 +99,6 @@ set whichwrap=b,s,h,l,<,>,[,]
 
 " 256色
 set t_Co=256
-" カラースキーマを設定
-colorscheme molokai
 
 " 行番号・ルーラーの表示
 set number

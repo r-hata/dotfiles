@@ -1,0 +1,52 @@
+# Required:
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'Shougo/vimshell'
+rev = '3787e5'
+
+# Add or remove your plugins here:
+[[plugins]] # カラースキーム
+repo = 'tomasr/molokai'
+hook_add = '''
+  " colorscheme 設定は source 後に行う必要があるので VimEnter で行う。
+  " 但し Colorscheme イベントの発生が抑制されないよう nested を付ける。
+  au MyAutoCmd VimEnter * nested colorscheme molokai
+'''
+
+[[plugins]] # deniteの前提プラグイン
+repo = 'Shougo/vimproc.vim'
+
+[[plugins]] # gitプラグイン
+repo = 'tpope/vim-fugitive'
+
+[[plugins]] # 閉じ括弧、2個目のクォーテーションを自動入力
+repo = 'cohama/lexima.vim'
+
+[[plugins]] # ステータスラインの表示を強化
+repo = 'itchyny/lightline.vim'
+
+[[plugins]] # 行末スペースの可視化
+repo = 'bronson/vim-trailing-whitespace'
+
+[[plugins]] # カーソル移動高速化
+repo = 'easymotion/vim-easymotion'
+
+[[plugins]] # ctags自動更新
+repo = 'soramugi/auto-ctags.vim'
+
+[[plugins]] # コメント化/コメント解除
+repo = 'tpope/vim-commentary.git'
+
+[[plugins]] # カーソル位置のコンテキストに合わせてftを切り替える
+repo = 'osyo-manga/vim-precious'
+depends = ['context_filetype.vim']
+
+[[plugins]] # カーソル位置のコンテキストのftを判定するライブラリ
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]] # toml syntax
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
