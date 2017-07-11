@@ -76,7 +76,6 @@ on_ft = 'toml'
 repo = 'itchyny/lightline.vim'
 hook_add = '''
   let g:lightline = {
-    \ 'colorscheme': 'wombat',
     \ 'active': {
     \   'left': [
     \   [ 'mode', 'paste' ],
@@ -85,8 +84,13 @@ hook_add = '''
     \ },
     \ 'component_function': {
     \   'gitbranch': 'fugitive#head',
+    \   'filename': 'LightlineFilename'
     \ }
     \ }
+
+  function! LightlineFilename()
+    return '' != expand('%:t') ? expand('%:t') : '[No Name]'
+  endfunction
 '''
 depends = ['vim-fugitive']
 
