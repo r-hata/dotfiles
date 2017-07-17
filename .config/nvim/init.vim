@@ -1,6 +1,6 @@
 " python3の有効化
 if has('mac')
-  let g:python3_host_prog = expand('/Users/Ryosuke/anaconda2/envs/python3/bin/python')
+  let g:python3_host_prog = expand('~/anaconda2/envs/python3/bin/python')
 elseif has('unix')
   let g:python3_host_prog = expand('/usr/bin/python3')
 endif
