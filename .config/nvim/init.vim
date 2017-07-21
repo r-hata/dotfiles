@@ -1,6 +1,6 @@
 " python3の有効化
 if has('mac')
-  let g:python3_host_prog = expand('/Users/Ryosuke/anaconda2/envs/python3/bin/python')
+  let g:python3_host_prog = expand('~/anaconda3/envs/python3/bin/python')
 elseif has('unix')
   let g:python3_host_prog = expand('/usr/bin/python3')
 endif
@@ -52,8 +52,14 @@ endif
 "End dein Scripts-------------------------
 
 " Key mapping-----------------------------
+" 途中改行
 inoremap <C-r> <ESC>o
+" ターミナルモードでEscによりノーマルモードへ
 tnoremap <silent> <ESC> <C-\><C-n>
+" 新しいタブを開く
+nnoremap <C-t> :tabnew<CR>
+" 一つ前のタグスタックにジャンプする
+nnoremap <C-Left> :pop<CR>
 " End key mapping-------------------------
 
 " 不可視文字を表示
