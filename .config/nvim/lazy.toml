@@ -22,3 +22,17 @@ on_i  = 1
 on_ft = ['snippet']
 depends = ['neosnippet-snippets']
 
+[[plugins]] # ファイル選択
+repo = 'Shougo/denite.nvim'
+depends = ['vimproc.vim']
+hook_add = '''
+  " バッファ一覧
+  noremap <C-p> :Denite buffer<CR>
+  " ファイル一覧
+  noremap <C-n> :Denite -buffer-name=file file<CR>
+  " 最近使ったファイルの一覧
+  noremap <C-z> :Denite file_old<CR>
+  " カレントディレクトリ
+  noremap <C-c> :Denite file_rec<CR>
+'''
+

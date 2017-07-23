@@ -29,22 +29,6 @@ hook_post_update = '''
 [[plugins]] # neosnippetの前提プラグイン
 repo = 'Shougo/neosnippet-snippets'
 
-[[plugins]] # ファイル選択
-repo = 'Shougo/denite.nvim'
-depends = ['vimproc.vim']
-hook_add = '''
-  " バッファ一覧
-  noremap <C-p> :Denite buffer<CR>
-  " ファイル一覧
-  noremap <C-n> :Denite -buffer-name=file file<CR>
-  " 最近使ったファイルの一覧
-  noremap <C-z> :Denite file_old<CR>
-  " カレントディレクトリ
-  noremap <C-c> :Denite file_rec<CR>
-  " ハイライトオフ
-  nnoremap <ESC><ESC> :nohl<CR>
-'''
-
 [[plugins]] # gitプラグイン
 repo = 'tpope/vim-fugitive'
 

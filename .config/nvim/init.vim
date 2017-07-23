@@ -1,6 +1,6 @@
 " python3の有効化
 if has('mac')
-  let g:python3_host_prog = expand('~/anaconda3/envs/python3/bin/python')
+"  let g:python3_host_prog = expand('~/anaconda3/envs/python3/bin/python')
 elseif has('unix')
   let g:python3_host_prog = expand('/usr/bin/python3')
 endif
@@ -60,6 +60,8 @@ tnoremap <silent> <ESC> <C-\><C-n>
 nnoremap <C-t> :tabnew<CR>
 " 一つ前のタグスタックにジャンプする
 nnoremap <C-Left> :pop<CR>
+" ハイライトオフ
+nnoremap <ESC><ESC> :nohl<CR>
 " End key mapping-------------------------
 
 " 不可視文字を表示
