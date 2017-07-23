@@ -1,10 +1,3 @@
-" python3の有効化
-if has('mac')
-"  let g:python3_host_prog = expand('~/anaconda3/envs/python3/bin/python')
-elseif has('unix')
-  let g:python3_host_prog = expand('/usr/bin/python3')
-endif
-
 "dein Scripts-----------------------------
 " Required:
 if !&compatible
