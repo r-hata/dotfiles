@@ -34,5 +34,17 @@ hook_add = '''
   noremap <C-z> :Denite file_old<CR>
   " カレントディレクトリ
   noremap <C-c> :Denite file_rec<CR>
+  " denite grep
+  noremap <C-f> :Denite grep<CR>
+'''
+hook_post_source = '''
+  " grepをagに変更
+  if executable('ag')
+    call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-u', '-g', ''])
+    call denite#custom#var('grep', 'command', ['ag'])
+    call denite#custom#var('grep', 'recursive_opts', [])
+    call denite#custom#var('grep', 'pattern_opt', [])
+    call denite#custom#var('grep', 'default_opts', ['--follow', '--no-group', '--no-color'])
+  endif
 '''
 
