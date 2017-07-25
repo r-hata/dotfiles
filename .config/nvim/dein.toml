@@ -86,3 +86,6 @@ hook_add = '''
 '''
 depends = ['vim-fugitive']
 
+[[plugins]] # Gitとの差分を表示する
+repo = 'airblade/vim-gitgutter'
+

@@ -144,6 +144,3 @@ set mouse=
 " カレント行をハイライト
 set cursorline
 
-" Vim終了時に現在のセッションを保存する
-au VimLeave * mks!  ~/vimsession
-
