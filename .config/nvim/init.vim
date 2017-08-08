@@ -48,7 +48,7 @@ endif
 " 途中改行
 inoremap <C-r> <ESC>o
 " ターミナルモードでEscによりノーマルモードへ
-tnoremap <silent> <ESC> <C-\><C-n>
+tnoremap <silent> <ESC> <C-\><C-n>0
 " 新しいタブを開く
 nnoremap <C-t> :tabnew<CR>
 " 一つ前のタグスタックにジャンプする
