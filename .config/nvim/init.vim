@@ -57,6 +57,14 @@ nnoremap <C-Left> :pop<CR>
 nnoremap <ESC><ESC> :nohl<CR>
 " End key mapping-------------------------
 
+" clang-format setting--------------------
+function! Formatonsave()
+  let l:formatdiff = 1
+  pyf ~/llvm/tools/clang/tools/clang-format/clang-format.py
+endfunction
+autocmd BufWritePre *.h,*.cc,*.cpp call Formatonsave()
+" End clang-format setting----------------
+
 " 不可視文字を表示
 set list
 " 不可視文字の表示記号指定
