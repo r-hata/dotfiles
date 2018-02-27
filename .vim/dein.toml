@@ -29,6 +29,12 @@ hook_post_update = '''
 [[plugins]] # neosnippetの前提プラグイン
 repo = 'Shougo/neosnippet-snippets'
 
+[[plugins]] # vim8使用時のdeoplete前提プラグイン
+repo = 'roxma/nvim-yarp'
+
+[[plugins]] # vim8使用時のdeoplete前提プラグイン
+repo = 'roxma/vim-hug-neovim-rpc'
+
 [[plugins]] # gitプラグイン
 repo = 'tpope/vim-fugitive'
 

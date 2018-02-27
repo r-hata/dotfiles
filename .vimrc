@@ -1,73 +1,151 @@
-" setting
-" 挙動を vi 互換ではなく、Vim のデフォルト設定にする
-set nocompatible
-"文字コードをUFT-8に設定
-set fenc=utf-8
-" バックアップファイルを作らない
-set nobackup
-" スワップファイルを作らない
-set noswapfile
-" 編集中のファイルが変更されたら自動で読み直す
-set autoread
-" バッファが編集中でもその他のファイルを開けるように
-set hidden
-" 入力中のコマンドをステータスに表示する
-set showcmd
+"dein Scripts-----------------------------
+" Required:
+if !&compatible
+  set nocompatible
+endif
 
+" reset augroup
+augroup MyAutoCmd
+  autocmd!
+augroup END
 
-" 見た目系
-" 行番号を表示
+" dein自体の自動インストール
+let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
+let s:dein_dir = s:cache_home . '/dein'
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+if !isdirectory(s:dein_repo_dir)
+  call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
+endif
+let &runtimepath = s:dein_repo_dir .",". &runtimepath
+
+" プラグイン読み込み＆キャッシュ作成
+let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/.vim/dein.toml'
+let s:lazy_toml_file = fnamemodify(expand('<sfile>'), ':h').'/.vim/lazy.toml'
+
+if has('python3')
+  if dein#load_state(s:dein_dir)
+    call dein#begin(s:dein_dir)
+    " tomlファイル読み込み
+    call dein#load_toml(s:toml_file,      {'lazy': 0})
+    call dein#load_toml(s:lazy_toml_file, {'lazy': 1})
+    call dein#end()
+    call dein#save_state()
+  endif
+endif
+
+" Required:
+filetype plugin indent on
+syntax enable
+
+" If you want to install not installed plugins on startup.
+if has('vim_starting') && dein#check_install()
+  call dein#install()
+endif
+
+"End dein Scripts-------------------------
+
+" Key mapping-----------------------------
+" 途中改行
+inoremap <C-r> <ESC>o
+" ターミナルモードでEscによりノーマルモードへ
+tnoremap <silent> <ESC> <C-\><C-n>0
+" 新しいタブを開く
+nnoremap <C-t> :tabnew<CR>
+" 一つ前のタグスタックにジャンプする
+nnoremap <C-Left> :pop<CR>
+" ハイライトオフ
+nnoremap <ESC><ESC> :nohl<CR>
+" End key mapping-------------------------
+
+" clang-format setting--------------------
+function! Formatonsave()
+  let l:formatdiff = 1
+  pyf ~/llvm/tools/clang/tools/clang-format/clang-format.py
+endfunction
+autocmd BufWritePre *.h,*.cc,*.cpp call Formatonsave()
+" End clang-format setting----------------
+
+" Backspaceキーの影響範囲に制限を設けない
+set backspace=indent,eol,start
+" 行頭行末の左右移動で行をまたぐ
+set whichwrap=b,s,h,l,<,>,[,]
+
+" 256色
+set t_Co=256
+
+" 行番号・ルーラーの表示
 set number
-" 現在の行を強調表示
-set cursorline
-" 現在の行を強調表示（縦）
-" set cursorcolumn
-" 行末の1文字先までカーソルを移動できるように
-set virtualedit=onemore
-" インデントはスマートインデント
-set smartindent
-" ビープ音を可視化
-set visualbell
-" 括弧入力時の対応する括弧を表示
-set showmatch
-" ステータスラインを常に表示
-set laststatus=2
-" コマンドラインの補完
-set wildmode=list:longest
-" 折り返し時に表示行単位での移動できるようにする
-nnoremap j gj
-nnoremap k gk
+set ruler
 
+" 行頭の余白内で Tab を打ち込むと、'shiftwidth' の数だけインデントする
+set smarttab
 
-" Tab系
-" 不可視文字を可視化(タブが「▸-」と表示される)
-set list listchars=tab:\▸\-
-" Tab文字を半角スペースにする
-set expandtab
-" 行頭以外のTab文字の表示幅（スペースいくつ分）
+" タブ幅の設定（下記参照）
+" http://peace-pipe.blogspot.com/2006/05/vimrc-vim.html
 set tabstop=4
-" 行頭でのTab文字の表示幅
 set shiftwidth=4
+set softtabstop=0
+set expandtab
 
+if has("autocmd")
+  " ファイルタイプの検索を有効にする
+  filetype plugin on
+  " ファイルタイプに合わせたインデントを利用
+  filetype indent on
+  " sw=softtabstop, sts=shiftwidth, ts=tabstop, et=expandtabの略
+  autocmd FileType html  setlocal sw=0 sts=2 ts=2 et
+  autocmd FileType ruby  setlocal sw=0 sts=2 ts=2 et
+  autocmd FileType scss  setlocal sw=0 sts=2 ts=2 et
+  autocmd FileType css   setlocal sw=0 sts=2 ts=2 et
+  autocmd FileType eruby setlocal sw=0 sts=2 ts=2 et
+  autocmd FileType vim   setlocal sw=0 sts=2 ts=2 et
+endif
 
-" 検索系
-" 検索文字列が小文字の場合は大文字小文字を区別なく検索する
-set ignorecase
-" 検索文字列に大文字が含まれている場合は区別して検索する
-set smartcase
-" 検索文字列入力時に順次対象文字列にヒットさせる
-set incsearch
-" 検索時に最後まで行ったら最初に戻る
-set wrapscan
-" 検索語をハイライト表示
+" 検索文字列をハイライトする↲
 set hlsearch
-" ESC連打でハイライト解除
-nmap <Esc><Esc> :nohlsearch<CR><Esc>
+" インクリメンタルサーチを有効にする
+set incsearch
+" 大文字小文字を区別しない
+set ignorecase
+" 大文字で検索されたら対象を大文字限定にする
+set smartcase
+" 行末まで検索したら行頭に戻る
+set wrapscan
 
-" カラースキーム
-syntax on
-colorscheme monokai
-set t_Co=256  " vim-monokai now only support 256 colours in terminal.
+" バックアップファイルを作成しない
+set nobackup
+" 編集中のスワップファイルを作成しない
+set noswapfile
+" 保存されていないファイルがある時終了前に保存確認
+set confirm
+" 外部からファイルが変更された時自動で更新
+set autoread
 
-" 無名レジスタとクリップボードのデータを共有する
-set clipboard=unnamedplus
+" ビープ音すべてを無効にする
+set visualbell t_vb=
+" エラーメッセージの表示時にビープを鳴らさない
+set noerrorbells
+
+" コマンドラインモードでTABキーによるファイル名補完を有効にする
+set wildmenu wildmode=list:longest,full
+
+" コマンドラインの履歴を10000件保存する
+set history=10000
+
+" OSのクリップボードをレジスタ指定無しで Yank, Put 出来るようにする
+set clipboard=unnamed,unnamedplus
+" Windows でもパスの区切り文字を / にする
+set shellslash
+
+" 上下8行の視界を確保
+set scrolloff=8
+set sidescrolloff=16
+" 左右スクロールは一文字づつ行う
+set sidescroll=1
+" マウス無効
+set mouse=
+" カレント行をハイライト
+set cursorline
+
+" ステータス行を2行にする
+set laststatus=2
