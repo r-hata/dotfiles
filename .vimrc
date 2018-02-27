@@ -45,8 +45,6 @@ endif
 "End dein Scripts-------------------------
 
 " Key mapping-----------------------------
-" 途中改行
-inoremap <C-r> <ESC>o
 " ターミナルモードでEscによりノーマルモードへ
 tnoremap <silent> <ESC> <C-\><C-n>0
 " 新しいタブを開く
@@ -149,3 +147,6 @@ set cursorline
 
 " ステータス行を2行にする
 set laststatus=2
+
+" バッファ切替時に保存の確認をしない
+set hidden
