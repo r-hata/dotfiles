@@ -12,7 +12,10 @@ tags*
 /.config/nvim/.netrwhist
 
 !/.vim/
-/.vim/dein/
+/.vim/*
+!/.vim/dein.toml
+!/.vim/lazy.toml
+
 !.vimrc
 
 !.gitconfig
