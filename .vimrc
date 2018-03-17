@@ -125,7 +125,7 @@ set visualbell t_vb=
 set noerrorbells
 
 " コマンドラインモードでTABキーによるファイル名補完を有効にする
-set wildmenu wildmode=list:longest,full
+set wildmenu wildmode=longest,full
 
 " コマンドラインの履歴を10000件保存する
 set history=10000
