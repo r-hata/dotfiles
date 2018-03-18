@@ -37,9 +37,9 @@ repo = 'Shougo/denite.nvim'
 depends = ['vimproc.vim']
 hook_add = '''
   " バッファ一覧
-  noremap <C-p> :Denite buffer<CR>
+  noremap <C-h> :Denite buffer<CR>
   " ファイル一覧
-  noremap <C-n> :Denite -buffer-name=file file<CR>
+  noremap <C-x> :Denite -buffer-name=file file<CR>
   " 最近使ったファイルの一覧
   noremap <C-z> :Denite file_old<CR>
   " カレントディレクトリ
