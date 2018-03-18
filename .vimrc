@@ -53,6 +53,10 @@ nnoremap <C-t> :tabnew<CR>
 nnoremap <C-Left> :pop<CR>
 " ハイライトオフ
 nnoremap <ESC><ESC> :nohl<CR>
+" Enter代替
+inoremap <C-j> <CR>
+" Delete代替
+inoremap <C-l> <Del>
 " End key mapping-------------------------
 
 " clang-format setting--------------------
