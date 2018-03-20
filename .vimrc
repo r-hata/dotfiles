@@ -55,6 +55,8 @@ nnoremap <C-Left> :pop<CR>
 nnoremap <ESC><ESC> :nohl<CR>
 " Delete代替
 inoremap <C-l> <Del>
+" Insertモード時のEsc代替
+inoremap jj <ESC>
 " End key mapping-------------------------
 
 " clang-format setting--------------------
