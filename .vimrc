@@ -52,7 +52,7 @@ nnoremap <C-t> :tabnew<CR>
 " 一つ前のタグスタックにジャンプする
 nnoremap <C-Left> :pop<CR>
 " ハイライトオフ
-nnoremap <ESC><ESC> :nohl<CR>
+nnoremap <silent> <CR> :nohl<CR>
 " Delete代替
 inoremap <C-l> <Del>
 " Insertモード時のEsc代替
