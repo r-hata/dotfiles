@@ -107,3 +107,6 @@ hook_add = '''
 	nmap <C-p> <Plug>(yankround-prev)
 	nmap <C-n> <Plug>(yankround-next)
 '''
+
+[[plugins]] # ヘルプを日本語化
+repo = 'vim-jp/vimdoc-ja'
