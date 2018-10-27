@@ -14,9 +14,9 @@ hook_add = '''
 [[plugins]] # deniteの前提プラグイン
 repo = 'Shougo/vimproc.vim'
 hook_post_update = '''
-  if dein#util#_is_windows()
+  if has('win32')
     let cmd = 'tools\\update-dll-mingw'
-  elseif dein#util#_is_cygwin()
+  elseif has('win32unix') " for Cygwin
     let cmd = 'make -f make_cygwin.mak'
   elseif executable('gmake')
     let cmd = 'gmake'
@@ -50,11 +50,8 @@ hook_add = '''
   map <Leader> <Plug>(easymotion-prefix)
 '''
 
-[[plugins]] # ctags自動更新
+[[plugins]] # ctags作成
 repo = 'soramugi/auto-ctags.vim'
-hook_add = '''
-  let g:auto_ctags = 1
-'''
 
 [[plugins]] # コメント化/コメント解除
 repo = 'tpope/vim-commentary.git'
