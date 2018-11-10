@@ -4,11 +4,11 @@ repo = 'Shougo/dein.vim'
 
 # Add or remove your plugins here:
 [[plugins]] # カラースキーム
-repo = 'tomasr/molokai'
+repo = 'cocopon/iceberg.vim'
 hook_add = '''
   " colorscheme 設定は source 後に行う必要があるので VimEnter で行う。
   " 但し Colorscheme イベントの発生が抑制されないよう nested を付ける。
-  au MyAutoCmd VimEnter * nested colorscheme molokai
+  au MyAutoCmd VimEnter * nested colorscheme iceberg
 '''
 
 [[plugins]] # deniteの前提プラグイン
@@ -71,6 +71,7 @@ on_ft = 'toml'
 repo = 'itchyny/lightline.vim'
 hook_add = '''
   let g:lightline = {
+    \ 'colorscheme': 'wombat',
     \ 'active': {
     \   'left': [
     \   [ 'mode', 'paste' ],
