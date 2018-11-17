@@ -108,3 +108,9 @@ hook_add = '''
 
 [[plugins]] # ヘルプを日本語化
 repo = 'vim-jp/vimdoc-ja'
+
+[[plugins]] # 括弧の対応をカラーリング
+repo = 'luochen1990/rainbow'
+hook_add = '''
+  let g:rainbow_active = 1
+'''
