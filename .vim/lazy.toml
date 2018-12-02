@@ -87,7 +87,7 @@ hook_source = '''
     call Preserve(':silent %!autopep8 -')
   endfunction
 
-  autocmd FileType python nnoremap <S-f> :call Autopep8()<CR>
+  autocmd FileType python nnoremap <C-p> :call Autopep8()<CR>
 '''
 
 [[plugins]] # html5
