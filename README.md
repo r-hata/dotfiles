@@ -4,7 +4,7 @@
 
 ```
 $ git clone git@github.com:r-hata/dotfiles
-$ cp -a dotfiles/. .
+$ ./dotfiles/setup.sh
 ```
 
 ## File list
