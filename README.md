@@ -3,7 +3,7 @@
 ## Setup
 
 ```
-$ git clone git@github.com:r-hata/dotfiles
+$ git clone git@github.com:r-hata/dotfiles.git "$HOME/.dotfiles"
 $ ./dotfiles/setup.sh
 ```
 
