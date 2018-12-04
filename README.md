@@ -3,7 +3,7 @@
 ## Setup
 
 ```
-$ git clone git@github.com:ryo6415/dotfiles
+$ git clone git@github.com:r-hata/dotfiles
 $ cp -a dotfiles/. .
 ```
 
