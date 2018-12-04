@@ -4,7 +4,7 @@
 
 ```
 $ git clone git@github.com:r-hata/dotfiles.git "$HOME/.dotfiles"
-$ ./dotfiles/setup.sh
+$ ~/.dotfiles/setup.sh
 ```
 
 ## File list
