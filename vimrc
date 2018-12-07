@@ -1,50 +1,199 @@
-"dein Scripts-----------------------------
-" Required:
-if !&compatible
-  set nocompatible
-endif
+" Encoding {{{
+set encoding=utf-8
+scriptencoding utf-8
+" }}} End encoding
 
-" reset augroup
-augroup MyAutoCmd
-  autocmd!
-augroup END
+" Environment {{{
+function! VimrcEnvironment()
+  let env = {}
+  let env.is_unix = has('unix')
+  let env.is_win = has('win32')
 
-" dein自体の自動インストール
-let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
-let s:dein_dir = s:cache_home . '/dein'
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-if !isdirectory(s:dein_repo_dir)
-  call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
-endif
-let &runtimepath = s:dein_repo_dir .",". &runtimepath
+  let user_dir = env.is_win
+        \ ? expand('$VIM/vimfiles')
+        \ : expand('~/.vim')
+  let env.path = {
+        \   'user':          user_dir,
+        \   'plugins':       user_dir . '/plugins',
+        \   'plug_preset':   user_dir . '/plug-preset.vim',
+        \   'data':          user_dir . '/data',
+        \   'local_vimrc':   user_dir . '/.vimrc_local',
+        \   'tmp':           user_dir . '/tmp',
+        \   'undo':          user_dir . '/data/undo',
+        \   'vim_plug':      user_dir . '/vim-plug',
+        \ }
 
-" プラグイン読み込み＆キャッシュ作成
-let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/.vim/dein.toml'
-let s:lazy_toml_file = fnamemodify(expand('<sfile>'), ':h').'/.vim/lazy.toml'
+  return env
+endfunction
 
-if has('python3')
-  if dein#load_state(s:dein_dir)
-    call dein#begin(s:dein_dir)
-    " tomlファイル読み込み
-    call dein#load_toml(s:toml_file,      {'lazy': 0})
-    call dein#load_toml(s:lazy_toml_file, {'lazy': 1})
-    call dein#end()
-    call dein#save_state()
+let s:env = VimrcEnvironment()
+" }}} End environment
+
+" Plugins {{{
+let s:plugins = [
+  \ 'cocopon/iceberg.vim',
+  \ 'cocopon/vaffle.vim',
+  \ 'cocopon/shadeline.vim',
+  \ 'tpope/vim-markdown',
+  \ 'cohama/lexima.vim',
+  \ 'bronson/vim-trailing-whitespace',
+  \ 'LeafCage/yankround.vim',
+  \ 'easymotion/vim-easymotion',
+  \ 'tpope/vim-fugitive',
+  \ 'vim-jp/vimdoc-ja',
+  \ 'junegunn/fzf',
+  \ 'junegunn/fzf.vim',
+  \ 'tyru/restart.vim',
+  \ 'godlygeek/tabular',
+  \ 'Shougo/context_filetype.vim',
+  \ 'osyo-manga/vim-precious',
+  \ 'luochen1990/rainbow',
+  \ 'kana/vim-operator-user',
+  \ 'osyo-manga/vim-operator-search',
+  \ 'Shougo/deoplete.nvim',
+  \ 'roxma/nvim-yarp',
+  \ 'roxma/vim-hug-neovim-rpc',
+  \ 'Shougo/neosnippet-snippets',
+  \ 'Shougo/neosnippet',
+  \ 'airblade/vim-gitgutter',
+  \ 'cespare/vim-toml',
+  \ 'othree/html5.vim',
+  \ 'pangloss/vim-javascript',
+  \ ]
+let s:colorscheme = 'iceberg'
+" }}} End plugins
+
+" Setup {{{
+function! VimrcSetUp()
+  call s:install_plugin_manager()
+endfunction
+" }}} End setup
+
+
+" Installation {{{
+function! s:mkdir_if_needed(dir)
+  if isdirectory(a:dir)
+    return 0
   endif
-endif
 
-" Required:
-filetype plugin indent on
-syntax enable
+  call mkdir(a:dir, 'p')
+  return 1
+endfunction
 
-" If you want to install not installed plugins on startup.
-if has('vim_starting') && dein#check_install()
-  call dein#install()
-endif
+function! s:install_plugins()
+  call s:mkdir_if_needed(s:env.path.plugins)
 
-"End dein Scripts-------------------------
+  if exists(':PlugInstall')
+    PlugInstall
+    return 1
+  endif
 
-" Key mapping-----------------------------
+  return 0
+endfunction
+
+function! s:clone_repository(url, local_path)
+  if isdirectory(a:local_path)
+    return
+  endif
+
+  execute printf('!git clone %s %s', a:url, a:local_path)
+endfunction
+
+function! s:install_plugin_manager()
+  call s:mkdir_if_needed(s:env.path.user)
+  call s:mkdir_if_needed(s:env.path.data)
+
+  call s:clone_repository(
+        \ 'https://github.com/junegunn/vim-plug',
+        \ s:env.path.vim_plug . '/autoload')
+  call s:clone_repository(
+        \ 'https://github.com/r-hata/plug-preset.vim',
+        \ s:env.path.plug_preset)
+
+  if !s:activate_plugin_manager()
+    return 0
+  endif
+
+  if !s:install_plugins()
+    return 0
+  endif
+
+  echo 'Restart vim to finish the installation.'
+  return 1
+endfunction
+" }}} End installation
+
+
+" Activation {{{
+function! s:load_plugin(path)
+  try
+    execute 'set runtimepath+=' . a:path
+
+    return 1
+  catch /:E117:/
+    " E117: Unknown function
+    return 0
+  endtry
+endfunction
+
+function! s:activate_plugins()
+  if !exists(':Plug')
+    " Plugin manager is not installed yet
+    return 0
+  endif
+
+  let command = exists(':PresetPlug')
+        \ ? 'PresetPlug'
+        \ : 'Plug'
+
+  for plugin in s:plugins
+    execute printf("%s '%s'", command, plugin)
+  endfor
+
+  return 1
+endfunction
+
+function! s:activate_plugin_manager_internal()
+  " Activate plugin manager
+  if !exists(':Plug')
+    execute 'set runtimepath+=' . s:env.path.vim_plug
+  endif
+  call plug#begin(s:env.path.plugins)
+
+  try
+    " Activate PresetPlug
+    if !exists(':PresetPlug')
+      execute 'set runtimepath+=' . s:env.path.plug_preset
+    endif
+    call plug_preset#init()
+
+    " Activate plugins
+    return s:activate_plugins()
+  finally
+    call plug#end()
+    filetype indent on
+    filetype plugin on
+  endtry
+endfunction
+
+function! s:activate_plugin_manager()
+  try
+    return s:activate_plugin_manager_internal()
+  catch /:E117:/
+    " E117: Unknown function
+    " Plugin manager is not installed yet
+    return 0
+  endtry
+endfunction
+" }}} End activation
+
+" Initialization {{{
+call s:mkdir_if_needed(s:env.path.tmp)
+call s:mkdir_if_needed(s:env.path.undo)
+let s:plugins_activated = s:activate_plugin_manager()
+" }}} End initialization
+
+" Key mapping {{{
 " ターミナルモードでEscによりノーマルモードへ
 tnoremap <silent> <ESC> <C-\><C-n>0
 " 新しいタブを開く
@@ -57,15 +206,11 @@ nnoremap <silent> <CR> :nohl<CR>
 inoremap <C-l> <Del>
 " Insertモード時のEsc代替
 inoremap jj <ESC>
-" End key mapping-------------------------
-
-" clang-format setting--------------------
-function! Formatonsave()
-  let l:formatdiff = 1
-  pyf ~/llvm/tools/clang/tools/clang-format/clang-format.py
-endfunction
-autocmd BufWritePre *.h,*.cc,*.cpp call Formatonsave()
-" End clang-format setting----------------
+" tagjump
+nnoremap <C-]> g<C-]>
+nnoremap <C-h> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
+nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
+" }}} End key mapping
 
 " Backspaceキーの影響範囲に制限を設けない
 set backspace=indent,eol,start
@@ -90,10 +235,6 @@ set softtabstop=0
 set expandtab
 
 if has("autocmd")
-  " ファイルタイプの検索を有効にする
-  filetype plugin on
-  " ファイルタイプに合わせたインデントを利用
-  filetype indent on
   " sw=softtabstop, sts=shiftwidth, ts=tabstop, et=expandtabの略
   autocmd FileType html  setlocal sw=0 sts=2 ts=2 et
   autocmd FileType ruby  setlocal sw=0 sts=2 ts=2 et
@@ -114,10 +255,12 @@ set smartcase
 " 行末まで検索したら行頭に戻る
 set wrapscan
 
-" バックアップファイルを作成しない
+" Backup
 set nobackup
-" 編集中のスワップファイルを作成しない
 set noswapfile
+let &undodir = s:env.path.undo
+set undofile
+
 " 保存されていないファイルがある時終了前に保存確認
 set confirm
 " 外部からファイルが変更された時自動で更新
@@ -144,11 +287,11 @@ set scrolloff=8
 set sidescrolloff=16
 " 左右スクロールは一文字づつ行う
 set sidescroll=1
-" マウス無効
-set mouse=
 " カレント行をハイライト
 set cursorline
-
+" 空白文字を可視化
+set list
+set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 " ステータス行を2行にする
 set laststatus=2
 
@@ -164,5 +307,137 @@ if has('vim_starting')
     let &t_SR .= "\e[4 q"
 endif
 
-" ヘルプを日本語化
-set helplang=ja,en
+" Plugins {{{
+if s:plugins_activated
+  " easymotion {{{
+  map <Space><Space> <Plug>(easymotion-prefix)
+  " }}} End easymotion
+
+  " yankround {{{
+  nmap p <Plug>(yankround-p)
+  xmap p <Plug>(yankround-p)
+  nmap P <Plug>(yankround-P)
+  nmap gp <Plug>(yankround-gp)
+  xmap gp <Plug>(yankround-gp)
+  nmap gP <Plug>(yankround-gP)
+  nmap <C-p> <Plug>(yankround-prev)
+  nmap <C-n> <Plug>(yankround-next)
+  " }}} End yankround
+
+  " shadeline {{{
+  let g:shadeline = {}
+  let g:shadeline.active = {
+        \   'left': [
+        \     'fname',
+        \     'flags',
+        \     'ShadelineItemGitBranch',
+        \   ],
+        \   'right': [
+        \     '<',
+        \     ['ff', 'fenc', 'ft'],
+        \     'ruler',
+        \   ],
+        \ }
+  let g:shadeline.inactive = {
+        \   'left': [
+        \     'fname',
+        \     'flags',
+        \   ],
+        \ }
+
+  function! ShadelineItemGitBranch()
+    let name = exists('*fugitive#head')
+          \ ? fugitive#head()
+          \ : ''
+    return empty(name) ? '' : printf('(%s)', name)
+  endfunction
+  " }}} End shadeline
+
+  " fzf.vim {{{
+  nnoremap <silent> <C-c> :FZF<CR>
+  " }}} End fzf.vim
+
+  " rainbow {{{
+  let g:rainbow_active = 1
+  " }}} End rainbow
+
+  " vim-trailing-whitespace {{{
+  autocmd BufWritePre * :FixWhitespace
+  " }}} End vim-trailing-whitespace
+  "
+  " restart.vim {{{
+  command!
+  \   -bar
+  \   RestartWithSession
+  \   let g:restart_sessionoptions = 'blank,curdir,folds,help,localoptions,tabpages'
+  \   | Restart
+  " }}} End restart.vim
+
+  " vim-operator-search {{{
+  nmap <Space>s <Plug>(operator-search)
+  nmap <Space>/ <Plug>(operator-search)if
+  " }}} End vim-operator-search
+
+  " deoplete {{{
+  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#auto_complete_delay = 0
+  let g:deoplete#auto_complete_start_length = 1
+  let g:deoplete#enable_camel_case = 0
+  let g:deoplete#enable_ignore_case = 0
+  let g:deoplete#enable_refresh_always = 0
+  let g:deoplete#enable_smart_case = 1
+  let g:deoplete#file#enable_buffer_path = 1
+  let g:deoplete#max_list = 10000
+  inoremap <expr><tab> pumvisible() ? "\<C-n>" :
+        \ neosnippet#expandable_or_jumpable() ?
+        \    "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
+  " }}} End deoplete
+
+  " neosnippet {{{
+  " Plugin key-mappings.
+  " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+  " SuperTab like snippets behavior.
+  " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+  "imap <expr><TAB>
+  " \ pumvisible() ? "\<C-n>" :
+  " \ neosnippet#expandable_or_jumpable() ?
+  " \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+  smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+  \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+  " For conceal markers.
+  if has('conceal')
+    set conceallevel=2 concealcursor=niv
+  endif
+  " }}} End neosnippet
+
+  " Japaneseization of help doc {{{
+  set helplang=ja,en
+  " }}} End japaneseization of help doc
+endif
+" }}} End plugins
+
+" Local settings {{{
+if filereadable(s:env.path.local_vimrc)
+	execute 'source ' . s:env.path.local_vimrc
+endif
+" }}} End local settings
+
+" Color scheme {{{
+if s:plugins_activated
+  if !has('gui_running')
+    syntax enable
+    execute printf('colorscheme %s', s:colorscheme)
+  else
+    augroup vimrc_colorscheme
+      autocmd!
+      execute printf('autocmd GUIEnter * colorscheme %s', s:colorscheme)
+    augroup END
+  endif
+endif
+" }}} End color scheme
+
