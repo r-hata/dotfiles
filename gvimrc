@@ -5,6 +5,8 @@ if has('gui_running')
   " Font
   if s:env.is_win
     set guifont=Ricty_Diminished_for_Powerline:h12
+  else
+    set guifont=Menlo-Regular:h12
   endif
 
   " window size
