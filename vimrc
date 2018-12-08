@@ -59,6 +59,7 @@ let s:plugins = [
   \ 'cespare/vim-toml',
   \ 'othree/html5.vim',
   \ 'pangloss/vim-javascript',
+  \ 'fatih/vim-go',
   \ ]
 let s:colorscheme = 'iceberg'
 " }}} End plugins
@@ -217,9 +218,6 @@ set backspace=indent,eol,start
 " 行頭行末の左右移動で行をまたぐ
 set whichwrap=b,s,h,l,<,>,[,]
 
-" 256色
-set t_Co=256
-
 " 行番号・ルーラーの表示
 set number
 set ruler
@@ -242,6 +240,7 @@ if has("autocmd")
   autocmd FileType css   setlocal sw=0 sts=2 ts=2 et
   autocmd FileType eruby setlocal sw=0 sts=2 ts=2 et
   autocmd FileType vim   setlocal sw=0 sts=2 ts=2 et
+  autocmd FileType zsh   setlocal sw=0 sts=2 ts=2 et
 endif
 
 " 検索文字列をハイライトする↲
