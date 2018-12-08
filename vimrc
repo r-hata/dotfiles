@@ -33,7 +33,7 @@ let s:env = VimrcEnvironment()
 let s:plugins = [
   \ 'cocopon/iceberg.vim',
   \ 'cocopon/vaffle.vim',
-  \ 'cocopon/shadeline.vim',
+  \ 'itchyny/lightline.vim',
   \ 'tpope/vim-markdown',
   \ 'cohama/lexima.vim',
   \ 'bronson/vim-trailing-whitespace',
@@ -323,34 +323,25 @@ if s:plugins_activated
   nmap <C-n> <Plug>(yankround-next)
   " }}} End yankround
 
-  " shadeline {{{
-  let g:shadeline = {}
-  let g:shadeline.active = {
-        \   'left': [
-        \     'fname',
-        \     'flags',
-        \     'ShadelineItemGitBranch',
-        \   ],
-        \   'right': [
-        \     '<',
-        \     ['ff', 'fenc', 'ft'],
-        \     'ruler',
-        \   ],
-        \ }
-  let g:shadeline.inactive = {
-        \   'left': [
-        \     'fname',
-        \     'flags',
-        \   ],
-        \ }
+  " lightline {{{
+  let g:lightline = {
+    \ 'colorscheme': s:colorscheme,
+    \ 'active': {
+    \   'left': [
+    \   [ 'mode', 'paste' ],
+    \   [ 'gitbranch', 'readonly', 'filename', 'modified' ]
+    \ ]
+    \ },
+    \ 'component_function': {
+    \   'gitbranch': 'fugitive#head',
+    \   'filename': 'LightlineFilename'
+    \ }
+    \ }
 
-  function! ShadelineItemGitBranch()
-    let name = exists('*fugitive#head')
-          \ ? fugitive#head()
-          \ : ''
-    return empty(name) ? '' : printf('(%s)', name)
+  function! LightlineFilename()
+    return '' != expand('%:t') ? expand('%:t') : '[No Name]'
   endfunction
-  " }}} End shadeline
+  " }}} End lightline
 
   " fzf.vim {{{
   nnoremap <silent> <C-c> :FZF<CR>
