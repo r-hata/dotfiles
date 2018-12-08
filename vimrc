@@ -60,6 +60,7 @@ let s:plugins = [
   \ 'othree/html5.vim',
   \ 'pangloss/vim-javascript',
   \ 'fatih/vim-go',
+  \ 'lilydjwg/colorizer',
   \ ]
 let s:colorscheme = 'iceberg'
 " }}} End plugins
