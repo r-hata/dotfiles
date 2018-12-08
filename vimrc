@@ -307,6 +307,17 @@ if has('vim_starting')
     let &t_SR .= "\e[4 q"
 endif
 
+" Color hex to func {{{
+function! HexToFunc(hex)
+  let color = matchlist(a:hex, '\([0-9A-F]\{2\}\)\([0-9A-F]\{2\}\)\([0-9A-F]\{2\}\)')
+  return 'rgb(' . printf('%d', '0x' . color[1]) . ', ' . printf('%d', '0x' . color[2]) . ', ' . printf('%d', '0x' . color[3]) . ')'
+endfunction
+
+command!
+\   HexToFunc
+\   :%s/\(#[0-9A-F]\{6\}\)/\=HexToFunc(submatch(1))/gi
+" }}}
+
 " Plugins {{{
 if s:plugins_activated
   " easymotion {{{
