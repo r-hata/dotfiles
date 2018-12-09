@@ -59,6 +59,7 @@ let s:plugins = [
   \ 'roxma/vim-hug-neovim-rpc',
   \ 'tpope/vim-fugitive',
   \ 'tpope/vim-markdown',
+  \ 'tpope/vim-surround',
   \ 'tyru/restart.vim',
   \ 'vim-jp/vimdoc-ja',
   \ ]
