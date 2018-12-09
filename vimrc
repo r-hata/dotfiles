@@ -1,7 +1,7 @@
 " Encoding {{{
 set encoding=utf-8
 scriptencoding utf-8
-" }}} End encoding
+" }}}
 
 " Environment {{{
 function! VimrcEnvironment()
@@ -27,49 +27,49 @@ function! VimrcEnvironment()
 endfunction
 
 let s:env = VimrcEnvironment()
-" }}} End environment
+" }}}
 
 " Plugins {{{
 let s:plugins = [
+  \ 'LeafCage/yankround.vim',
+  \ 'Shougo/context_filetype.vim',
+  \ 'Shougo/deoplete.nvim',
+  \ 'Shougo/neosnippet',
+  \ 'Shougo/neosnippet-snippets',
+  \ 'airblade/vim-gitgutter',
+  \ 'bronson/vim-trailing-whitespace',
+  \ 'cespare/vim-toml',
   \ 'cocopon/iceberg.vim',
   \ 'cocopon/vaffle.vim',
-  \ 'itchyny/lightline.vim',
-  \ 'tpope/vim-markdown',
   \ 'cohama/lexima.vim',
-  \ 'bronson/vim-trailing-whitespace',
-  \ 'LeafCage/yankround.vim',
   \ 'easymotion/vim-easymotion',
-  \ 'tpope/vim-fugitive',
-  \ 'vim-jp/vimdoc-ja',
+  \ 'fatih/vim-go',
+  \ 'godlygeek/tabular',
+  \ 'itchyny/lightline.vim',
   \ 'junegunn/fzf',
   \ 'junegunn/fzf.vim',
-  \ 'tyru/restart.vim',
-  \ 'godlygeek/tabular',
-  \ 'Shougo/context_filetype.vim',
-  \ 'osyo-manga/vim-precious',
-  \ 'luochen1990/rainbow',
   \ 'kana/vim-operator-user',
+  \ 'lilydjwg/colorizer',
+  \ 'luochen1990/rainbow',
   \ 'osyo-manga/vim-operator-search',
-  \ 'Shougo/deoplete.nvim',
-  \ 'roxma/nvim-yarp',
-  \ 'roxma/vim-hug-neovim-rpc',
-  \ 'Shougo/neosnippet-snippets',
-  \ 'Shougo/neosnippet',
-  \ 'airblade/vim-gitgutter',
-  \ 'cespare/vim-toml',
+  \ 'osyo-manga/vim-precious',
   \ 'othree/html5.vim',
   \ 'pangloss/vim-javascript',
-  \ 'fatih/vim-go',
-  \ 'lilydjwg/colorizer',
+  \ 'roxma/nvim-yarp',
+  \ 'roxma/vim-hug-neovim-rpc',
+  \ 'tpope/vim-fugitive',
+  \ 'tpope/vim-markdown',
+  \ 'tyru/restart.vim',
+  \ 'vim-jp/vimdoc-ja',
   \ ]
 let s:colorscheme = 'iceberg'
-" }}} End plugins
+" }}}
 
 " Setup {{{
 function! VimrcSetUp()
   call s:install_plugin_manager()
 endfunction
-" }}} End setup
+" }}}
 
 
 " Installation {{{
@@ -123,7 +123,7 @@ function! s:install_plugin_manager()
   echo 'Restart vim to finish the installation.'
   return 1
 endfunction
-" }}} End installation
+" }}}
 
 
 " Activation {{{
@@ -187,13 +187,13 @@ function! s:activate_plugin_manager()
     return 0
   endtry
 endfunction
-" }}} End activation
+" }}}
 
 " Initialization {{{
 call s:mkdir_if_needed(s:env.path.tmp)
 call s:mkdir_if_needed(s:env.path.undo)
 let s:plugins_activated = s:activate_plugin_manager()
-" }}} End initialization
+" }}}
 
 " Key mapping {{{
 " ターミナルモードでEscによりノーマルモードへ
@@ -212,7 +212,7 @@ inoremap jj <ESC>
 nnoremap <C-]> g<C-]>
 nnoremap <C-h> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
 nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
-" }}} End key mapping
+" }}}
 
 " Backspaceキーの影響範囲に制限を設けない
 set backspace=indent,eol,start
@@ -322,7 +322,7 @@ command!
 if s:plugins_activated
   " easymotion {{{
   map <Space><Space> <Plug>(easymotion-prefix)
-  " }}} End easymotion
+  " }}}
 
   " yankround {{{
   nmap p <Plug>(yankround-p)
@@ -333,7 +333,7 @@ if s:plugins_activated
   nmap gP <Plug>(yankround-gP)
   nmap <C-p> <Plug>(yankround-prev)
   nmap <C-n> <Plug>(yankround-next)
-  " }}} End yankround
+  " }}}
 
   " lightline {{{
   let g:lightline = {
@@ -353,19 +353,19 @@ if s:plugins_activated
   function! LightlineFilename()
     return '' != expand('%:t') ? expand('%:t') : '[No Name]'
   endfunction
-  " }}} End lightline
+  " }}}
 
   " fzf.vim {{{
-  nnoremap <silent> <C-c> :FZF<CR>
-  " }}} End fzf.vim
+  nnoremap <silent> <C-p> :FZF<CR>
+  " }}}
 
   " rainbow {{{
   let g:rainbow_active = 1
-  " }}} End rainbow
+  " }}}
 
   " vim-trailing-whitespace {{{
   autocmd BufWritePre * :FixWhitespace
-  " }}} End vim-trailing-whitespace
+  " }}}
   "
   " restart.vim {{{
   command!
@@ -373,12 +373,12 @@ if s:plugins_activated
   \   RestartWithSession
   \   let g:restart_sessionoptions = 'blank,curdir,folds,help,localoptions,tabpages'
   \   | Restart
-  " }}} End restart.vim
+  " }}}
 
   " vim-operator-search {{{
   nmap <Space>s <Plug>(operator-search)
   nmap <Space>/ <Plug>(operator-search)if
-  " }}} End vim-operator-search
+  " }}}
 
   " deoplete {{{
   let g:deoplete#enable_at_startup = 1
@@ -393,7 +393,7 @@ if s:plugins_activated
   inoremap <expr><tab> pumvisible() ? "\<C-n>" :
         \ neosnippet#expandable_or_jumpable() ?
         \    "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
-  " }}} End deoplete
+  " }}}
 
   " neosnippet {{{
   " Plugin key-mappings.
@@ -415,19 +415,19 @@ if s:plugins_activated
   if has('conceal')
     set conceallevel=2 concealcursor=niv
   endif
-  " }}} End neosnippet
+  " }}}
 
   " Japaneseization of help doc {{{
   set helplang=ja,en
-  " }}} End japaneseization of help doc
+  " }}}
 endif
-" }}} End plugins
+" }}}
 
 " Local settings {{{
 if filereadable(s:env.path.local_vimrc)
 	execute 'source ' . s:env.path.local_vimrc
 endif
-" }}} End local settings
+" }}}
 
 " Color scheme {{{
 if s:plugins_activated
@@ -441,5 +441,5 @@ if s:plugins_activated
     augroup END
   endif
 endif
-" }}} End color scheme
+" }}}
 
