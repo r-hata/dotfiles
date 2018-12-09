@@ -357,7 +357,6 @@ if s:plugins_activated
 
   " fzf.vim {{{
   nnoremap <silent> <C-c> :FZF<CR>
-  let $FZF_DEFAULT_COMMAND='rg --files --follow --hidden 2>/dev/null'
   " }}} End fzf.vim
 
   " rainbow {{{

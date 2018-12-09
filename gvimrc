@@ -15,6 +15,11 @@ if has('gui_running')
   " width
   set columns=120
 
+  " fzf
+  if s:env.is_unix
+    let $FZF_DEFAULT_COMMAND='ag --follow --hidden --ignore-dir ".git" -g "" 2>/dev/null'
+  endif
+
   " Misc
   set guioptions-=m
   set guioptions-=T
