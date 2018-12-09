@@ -17,7 +17,7 @@ if has('gui_running')
 
   " fzf
   if s:env.is_unix
-    let $FZF_DEFAULT_COMMAND='ag --follow --hidden --ignore-dir ".git" -g "" 2>/dev/null'
+    let $FZF_DEFAULT_COMMAND='rg --files --follow --hidden 2>/dev/null'
   endif
 
   " Misc
