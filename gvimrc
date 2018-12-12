@@ -18,7 +18,7 @@ if has('gui_running')
   " }}}
 
   " fzf {{{
-  if s:env.is_unix
+  if executable('rg') && s:env.is_unix
     let $FZF_DEFAULT_COMMAND="rg --files --follow --hidden -g '!**/.git/*' 2>/dev/null"
   endif
   " }}}

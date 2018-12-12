@@ -31,6 +31,7 @@ let s:env = VimrcEnvironment()
 
 " Plugins {{{
 let s:plugins = [
+  \ 'AndrewRadev/linediff.vim',
   \ 'LeafCage/yankround.vim',
   \ 'Shougo/context_filetype.vim',
   \ 'Shougo/deoplete.nvim',
