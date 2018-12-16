@@ -57,6 +57,7 @@ let s:plugins = [
   \ 'osyo-manga/vim-precious',
   \ 'othree/html5.vim',
   \ 'pangloss/vim-javascript',
+  \ 'posva/vim-vue',
   \ 'roxma/nvim-yarp',
   \ 'roxma/vim-hug-neovim-rpc',
   \ 'tpope/vim-fugitive',
@@ -246,6 +247,7 @@ if has("autocmd")
   autocmd FileType vim   setlocal sw=0 sts=2 ts=2 et
   autocmd FileType zsh   setlocal sw=0 sts=2 ts=2 et
   autocmd FileType pug   setlocal sw=0 sts=2 ts=2 et
+  autocmd FileType vue   setlocal sw=0 sts=2 ts=2 et
 endif
 
 " 検索文字列をハイライトする↲
