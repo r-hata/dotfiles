@@ -43,6 +43,7 @@ let s:plugins = [
   \ 'cocopon/iceberg.vim',
   \ 'cocopon/vaffle.vim',
   \ 'cohama/lexima.vim',
+  \ 'digitaltoad/vim-pug',
   \ 'easymotion/vim-easymotion',
   \ 'fatih/vim-go',
   \ 'godlygeek/tabular',
@@ -244,6 +245,7 @@ if has("autocmd")
   autocmd FileType eruby setlocal sw=0 sts=2 ts=2 et
   autocmd FileType vim   setlocal sw=0 sts=2 ts=2 et
   autocmd FileType zsh   setlocal sw=0 sts=2 ts=2 et
+  autocmd FileType pug   setlocal sw=0 sts=2 ts=2 et
 endif
 
 " 検索文字列をハイライトする↲
@@ -358,17 +360,14 @@ if s:plugins_activated
   " }}}
 
   " fzf.vim {{{
-  nnoremap <silent> <C-p> :FZF<CR>
+  nnoremap <silent> <C-c> :FZF<CR>
+  nnoremap <silent> <C-b> :Buffers<CR>
   " }}}
 
   " rainbow {{{
   let g:rainbow_active = 1
   " }}}
 
-  " vim-trailing-whitespace {{{
-  autocmd BufWritePre * :FixWhitespace
-  " }}}
-  "
   " restart.vim {{{
   command!
   \   -bar
