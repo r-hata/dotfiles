@@ -12,9 +12,9 @@ if has('gui_running')
 
   " window size {{{
   " height
-  set lines=40
+  set lines=48
   " width
-  set columns=120
+  set columns=148
   " }}}
 
   " fzf {{{
