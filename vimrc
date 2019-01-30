@@ -300,6 +300,8 @@ set list
 set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 " ステータス行を2行にする
 set laststatus=2
+" Insertモード時、"-- 挿入 --"を非表示にする
+set noshowmode
 
 " バッファ切替時に保存の確認をしない
 set hidden
@@ -357,7 +359,11 @@ if s:plugins_activated
     \ }
 
   function! LightlineFilename()
-    return '' != expand('%:t') ? expand('%:t') : '[No Name]'
+    if '' != expand('%:t')
+      return winwidth(0) > 120 ? expand('%:s') : expand('%:t')
+    else
+      return '[No Name]'
+    endif
   endfunction
   " }}}
 
