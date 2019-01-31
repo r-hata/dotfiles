@@ -353,16 +353,47 @@ if s:plugins_activated
     \ ]
     \ },
     \ 'component_function': {
-    \   'gitbranch': 'fugitive#head',
+    \   'gitbranch': 'LightlineGitHead',
     \   'filename': 'LightlineFilename'
     \ }
     \ }
 
   function! LightlineFilename()
-    if '' != expand('%:t')
-      return winwidth(0) > 120 ? expand('%:s') : expand('%:t')
+    let l:head = fugitive#head()
+    let l:filename = expand('%:t')
+    let l:relative_path_filename = expand('%:s')
+    let l:head_len = strlen(l:head)
+    let l:filename_len = strlen(l:filename)
+    let l:path_len = strlen(l:relative_path_filename)
+    let l:MARGIN = 50
+    let l:width = winwidth(0)
+
+    if l:width > l:head_len + l:filename_len + l:MARGIN
+      if '' != expand('%:t')
+        if l:width > l:head_len + l:path_len + l:MARGIN
+          return l:relative_path_filename
+        else
+          return l:filename
+        endif
+      else
+        return '[No Name]'
+      endif
     else
-      return '[No Name]'
+      return ''
+    endif
+  endfunction
+
+  function! LightlineGitHead()
+    let l:head = fugitive#head()
+    let l:filename = expand('%:t')
+    let l:head_len = strlen(l:head)
+    let l:filename_len = strlen(l:filename)
+    let l:MARGIN = 50
+
+    if winwidth(0) > l:head_len + l:filename_len + l:MARGIN
+      return l:head
+    else
+      return ''
     endif
   endfunction
   " }}}
