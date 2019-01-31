@@ -218,25 +218,17 @@ nnoremap <C-h> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
 nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
 " }}}
 
-" Backspaceキーの影響範囲に制限を設けない
-set backspace=indent,eol,start
-" 行頭行末の左右移動で行をまたぐ
-set whichwrap=b,s,h,l,<,>,[,]
-
-" 行番号・ルーラーの表示
-set number
-set ruler
-
-" 行頭の余白内で Tab を打ち込むと、'shiftwidth' の数だけインデントする
-set smarttab
-
-" タブ幅の設定（下記参照）
+" Indent {{{
 " http://peace-pipe.blogspot.com/2006/05/vimrc-vim.html
 set tabstop=4
 set shiftwidth=4
 set softtabstop=0
 set expandtab
+" 行頭の余白内で Tab を打ち込むと、'shiftwidth' の数だけインデントする
+set smarttab
+" }}}
 
+" File types {{{
 if has("autocmd")
   " sw=softtabstop, sts=shiftwidth, ts=tabstop, et=expandtabの略
   autocmd FileType html  setlocal sw=0 sts=2 ts=2 et
@@ -249,7 +241,9 @@ if has("autocmd")
   autocmd FileType pug   setlocal sw=0 sts=2 ts=2 et
   autocmd FileType vue   setlocal sw=0 sts=2 ts=2 et
 endif
+" }}}
 
+" Search {{{
 " 検索文字列をハイライトする↲
 set hlsearch
 " インクリメンタルサーチを有効にする
@@ -260,34 +254,19 @@ set ignorecase
 set smartcase
 " 行末まで検索したら行頭に戻る
 set wrapscan
+" }}}
 
-" Backup
+" Backup {{{
 set nobackup
 set noswapfile
 let &undodir = s:env.path.undo
 set undofile
+" }}}
 
-" 保存されていないファイルがある時終了前に保存確認
-set confirm
-" 外部からファイルが変更された時自動で更新
-set autoread
-
-" ビープ音すべてを無効にする
-set visualbell t_vb=
-" エラーメッセージの表示時にビープを鳴らさない
-set noerrorbells
-
-" コマンドラインモードでTABキーによるファイル名補完を有効にする
-set wildmenu wildmode=longest,full
-
-" コマンドラインの履歴を10000件保存する
-set history=10000
-
-" OSのクリップボードをレジスタ指定無しで Yank, Put 出来るようにする
-set clipboard=unnamed,unnamedplus
-" Windows でもパスの区切り文字を / にする
-set shellslash
-
+" Appearance {{{
+" 行番号・ルーラーの表示
+set number
+set ruler
 " 上下8行の視界を確保
 set scrolloff=8
 set sidescrolloff=16
@@ -302,10 +281,9 @@ set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 set laststatus=2
 " Insertモード時、"-- 挿入 --"を非表示にする
 set noshowmode
+" }}}
 
-" バッファ切替時に保存の確認をしない
-set hidden
-
+" Cursor {{{
 if has('vim_starting')
     " 挿入モード時に非点滅の縦棒タイプのカーソル
     let &t_SI .= "\e[6 q"
@@ -314,6 +292,32 @@ if has('vim_starting')
     " 置換モード時に非点滅の下線タイプのカーソル
     let &t_SR .= "\e[4 q"
 endif
+" Backspaceキーの影響範囲に制限を設けない
+set backspace=indent,eol,start
+" 行頭行末の左右移動で行をまたぐ
+set whichwrap=b,s,h,l,<,>,[,]
+" }}}
+
+" Misc {{{
+" 保存されていないファイルがある時終了前に保存確認
+set confirm
+" 外部からファイルが変更された時自動で更新
+set autoread
+" バッファ切替時に保存の確認をしない
+set hidden
+" ビープ音をすべて無効にする
+set visualbell t_vb=
+" エラーメッセージの表示時にビープを鳴らさない
+set noerrorbells
+" クリップボードをレジスタ指定無しで Yank, Put 出来るようにする
+set clipboard=unnamed,unnamedplus
+" Windows でもパスの区切り文字を / にする
+set shellslash
+" コマンドラインモードでTABキーによるファイル名補完を有効にする
+set wildmenu wildmode=longest,full
+" コマンドラインの履歴を10000件保存する
+set history=10000
+" }}}
 
 " Color hex to func {{{
 function! HexToFunc(hex)
@@ -326,7 +330,7 @@ command!
 \   :%s/\(#[0-9A-F]\{6\}\)/\=HexToFunc(submatch(1))/gi
 " }}}
 
-" Plugins {{{
+" Plugin settings {{{
 if s:plugins_activated
   " easymotion {{{
   map <Space><Space> <Plug>(easymotion-prefix)
@@ -369,7 +373,7 @@ if s:plugins_activated
     let l:width = winwidth(0)
 
     if l:width > l:head_len + l:filename_len + l:MARGIN
-      if '' != expand('%:t')
+      if '' != l:filename
         if l:width > l:head_len + l:path_len + l:MARGIN
           return l:relative_path_filename
         else
