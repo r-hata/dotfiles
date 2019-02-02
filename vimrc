@@ -281,6 +281,14 @@ set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 set laststatus=2
 " Insertモード時、"-- 挿入 --"を非表示にする
 set noshowmode
+" set gui colors on cui vim
+if exists('$TMUX')
+  " Colors in tmux
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+set termguicolors
+set background=dark
 " }}}
 
 " Cursor {{{
