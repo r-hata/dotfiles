@@ -48,7 +48,6 @@ let s:plugins = [
   \ 'easymotion/vim-easymotion',
   \ 'fatih/vim-go',
   \ 'godlygeek/tabular',
-  \ 'itchyny/lightline.vim',
   \ 'junegunn/fzf',
   \ 'junegunn/fzf.vim',
   \ 'kana/vim-operator-user',
@@ -66,6 +65,7 @@ let s:plugins = [
   \ 'tpope/vim-markdown',
   \ 'tpope/vim-surround',
   \ 'tyru/restart.vim',
+  \ 'vim-airline/vim-airline',
   \ 'vim-jp/vimdoc-ja',
   \ ]
 let s:colorscheme = 'iceberg'
@@ -357,61 +357,6 @@ if s:plugins_activated
   nmap <C-n> <Plug>(yankround-next)
   " }}}
 
-  " lightline {{{
-  let g:lightline = {
-    \ 'colorscheme': s:colorscheme,
-    \ 'active': {
-    \   'left': [
-    \   [ 'mode', 'paste' ],
-    \   [ 'gitbranch', 'readonly', 'filename', 'modified' ]
-    \ ]
-    \ },
-    \ 'component_function': {
-    \   'gitbranch': 'LightlineGitHead',
-    \   'filename': 'LightlineFilename'
-    \ }
-    \ }
-
-  function! LightlineFilename()
-    let l:head = fugitive#head()
-    let l:filename = expand('%:t')
-    let l:relative_path_filename = expand('%:s')
-    let l:head_len = strlen(l:head)
-    let l:filename_len = strlen(l:filename)
-    let l:path_len = strlen(l:relative_path_filename)
-    let l:MARGIN = 50
-    let l:width = winwidth(0)
-
-    if l:width > l:head_len + l:filename_len + l:MARGIN
-      if '' != l:filename
-        if l:width > l:head_len + l:path_len + l:MARGIN
-          return l:relative_path_filename
-        else
-          return l:filename
-        endif
-      else
-        return '[No Name]'
-      endif
-    else
-      return ''
-    endif
-  endfunction
-
-  function! LightlineGitHead()
-    let l:head = fugitive#head()
-    let l:filename = expand('%:t')
-    let l:head_len = strlen(l:head)
-    let l:filename_len = strlen(l:filename)
-    let l:MARGIN = 50
-
-    if winwidth(0) > l:head_len + l:filename_len + l:MARGIN
-      return l:head
-    else
-      return ''
-    endif
-  endfunction
-  " }}}
-
   " fzf.vim {{{
   nnoremap <silent> <C-c> :FZF<CR>
   nnoremap <silent> <C-b> :Buffers<CR>
@@ -488,7 +433,7 @@ if s:plugins_activated
           \ 'outputter/buffer/split' : ':botright 8sp',
       \ }
   \}
-  
+
   " 実行時に前回の表示内容をクローズ&保存してから実行
   let g:quickrun_no_default_key_mappings = 1
   nmap <Leader>r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
@@ -498,7 +443,7 @@ endif
 
 " Local settings {{{
 if filereadable(s:env.path.local_vimrc)
-	execute 'source ' . s:env.path.local_vimrc
+  execute 'source ' . s:env.path.local_vimrc
 endif
 " }}}
 
