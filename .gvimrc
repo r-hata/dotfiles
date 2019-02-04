@@ -6,7 +6,7 @@ if has('gui_running')
   if s:env.is_win
     set guifont=Ricty_Diminished_Discord:h12
   else
-    set guifont=Menlo-Regular:h12
+    set guifont=Ricty_Diminished_Discord:h16
   endif
   " }}}
 
