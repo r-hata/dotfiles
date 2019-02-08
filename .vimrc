@@ -202,22 +202,20 @@ let s:plugins_activated = s:activate_plugin_manager()
 " }}}
 
 " Key mapping {{{
-" ターミナルモードでEscによりノーマルモードへ
+" In TERMINAL mode, press Esc key to go to NORMAL mode
 tnoremap <silent> <ESC> <C-\><C-n>0
-" 新しいタブを開く
+
 nnoremap <C-t> :tabnew<CR>
-" 一つ前のタグスタックにジャンプする
-nnoremap <C-Left> :pop<CR>
-" ハイライトオフ
-nnoremap <silent> <CR> :nohl<CR>
-" Delete代替
+nnoremap <silent> <CR> :nohlsearch<CR>
 inoremap <C-l> <Del>
-" Insertモード時のEsc代替
 inoremap jj <ESC>
+
 " tagjump
 nnoremap <C-]> g<C-]>
-nnoremap <C-h> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
+nnoremap <C-h> :vsplit<CR> :exe("tjump ".expand('<cword>'))<CR>
 nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
+nnoremap <C-Left> :pop<CR>
+
 " For US keyboard
 nnoremap ; :
 " }}}
@@ -228,35 +226,29 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=0
 set expandtab
-" 行頭の余白内で Tab を打ち込むと、'shiftwidth' の数だけインデントする
 set smarttab
 " }}}
 
 " File types {{{
-if has("autocmd")
-  " sw=softtabstop, sts=shiftwidth, ts=tabstop, et=expandtabの略
-  autocmd FileType html  setlocal sw=0 sts=2 ts=2 et
-  autocmd FileType ruby  setlocal sw=0 sts=2 ts=2 et
-  autocmd FileType scss  setlocal sw=0 sts=2 ts=2 et
-  autocmd FileType css   setlocal sw=0 sts=2 ts=2 et
-  autocmd FileType eruby setlocal sw=0 sts=2 ts=2 et
-  autocmd FileType vim   setlocal sw=0 sts=2 ts=2 et
-  autocmd FileType zsh   setlocal sw=0 sts=2 ts=2 et
-  autocmd FileType pug   setlocal sw=0 sts=2 ts=2 et
-  autocmd FileType vue   setlocal sw=0 sts=2 ts=2 et
-endif
+augroup vimrc
+  autocmd!
+  autocmd FileType html  setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType ruby  setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType scss  setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType css   setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType eruby setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType vim   setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType zsh   setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType pug   setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType vue   setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
+augroup END
 " }}}
 
 " Search {{{
-" 検索文字列をハイライトする↲
 set hlsearch
-" インクリメンタルサーチを有効にする
 set incsearch
-" 大文字小文字を区別しない
 set ignorecase
-" 大文字で検索されたら対象を大文字限定にする
 set smartcase
-" 行末まで検索したら行頭に戻る
 set wrapscan
 " }}}
 
@@ -268,22 +260,15 @@ set undofile
 " }}}
 
 " Appearance {{{
-" 行番号・ルーラーの表示
 set number
 set ruler
-" 上下8行の視界を確保
 set scrolloff=8
 set sidescrolloff=16
-" 左右スクロールは一文字づつ行う
 set sidescroll=1
-" カレント行をハイライト
 set cursorline
-" 空白文字を可視化
 set list
 set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
-" ステータス行を2行にする
 set laststatus=2
-" Insertモード時、"-- 挿入 --"を非表示にする
 set noshowmode
 " set gui colors on cui vim
 if exists('$TMUX')
@@ -297,37 +282,28 @@ set background=dark
 
 " Cursor {{{
 if has('vim_starting')
-    " 挿入モード時に非点滅の縦棒タイプのカーソル
+    " Non blink vertical bar type cursor on INSERT mode
     let &t_SI .= "\e[6 q"
-    " ノーマルモード時に非点滅のブロックタイプのカーソル
+    " Non blink block type cursor on NORMAL mode
     let &t_EI .= "\e[2 q"
-    " 置換モード時に非点滅の下線タイプのカーソル
+    " Non blink underscore type cursor on REPLACE mode
     let &t_SR .= "\e[4 q"
 endif
-" Backspaceキーの影響範囲に制限を設けない
+" Enable cursor across lines
 set backspace=indent,eol,start
-" 行頭行末の左右移動で行をまたぐ
 set whichwrap=b,s,h,l,<,>,[,]
 " }}}
 
 " Misc {{{
-" 保存されていないファイルがある時終了前に保存確認
 set confirm
-" 外部からファイルが変更された時自動で更新
 set autoread
-" バッファ切替時に保存の確認をしない
 set hidden
-" ビープ音をすべて無効にする
 set visualbell t_vb=
-" エラーメッセージの表示時にビープを鳴らさない
 set noerrorbells
-" クリップボードをレジスタ指定無しで Yank, Put 出来るようにする
 set clipboard=unnamed,unnamedplus
-" Windows でもパスの区切り文字を / にする
+" Make Windows path separator slash
 set shellslash
-" コマンドラインモードでTABキーによるファイル名補完を有効にする
 set wildmenu wildmode=longest,full
-" コマンドラインの履歴を10000件保存する
 set history=10000
 " }}}
 
@@ -422,9 +398,9 @@ if s:plugins_activated
   " }}}
 
   " quickrun {{{
-  " vimprocで非同期実行
-  " 成功時にバッファ、失敗時にQuickFixで表示
-  " 結果表示のサイズ調整など
+  " Asynchronous execution by vimproc
+  " Display buffers on success, display Quickfix on failure
+  " Resize result window
   let g:quickrun_config = {
       \ '_' : {
           \ 'runner' : 'vimproc',
@@ -436,7 +412,7 @@ if s:plugins_activated
       \ }
   \}
 
-  " 実行時に前回の表示内容をクローズ&保存してから実行
+  " Save the buffer, close the previous result and execute
   let g:quickrun_no_default_key_mappings = 1
   nmap <Leader>r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
   " }}}
