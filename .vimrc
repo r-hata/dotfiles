@@ -1,3 +1,9 @@
+"        _
+" __   _(_)_ __ ___  _ __ ___
+" \ \ / / | '_ ` _ \| '__/ __|
+"  \ V /| | | | | | | | | (__
+" (_)_/ |_|_| |_| |_|_|  \___|
+"
 " Encoding {{{
 set encoding=utf-8
 scriptencoding utf-8
@@ -7,6 +13,7 @@ scriptencoding utf-8
 function! VimrcEnvironment()
   let env = {}
   let env.is_unix = has('unix')
+  let env.is_mac = has('mac')
   let env.is_win = has('win32')
 
   let user_dir = env.is_win
@@ -15,10 +22,8 @@ function! VimrcEnvironment()
   let env.path = {
         \   'user':          user_dir,
         \   'plugins':       user_dir . '/plugins',
-        \   'plug_preset':   user_dir . '/plug-preset.vim',
         \   'data':          user_dir . '/data',
         \   'local_vimrc':   user_dir . '/.vimrc_local',
-        \   'tmp':           user_dir . '/tmp',
         \   'undo':          user_dir . '/data/undo',
         \   'vim_plug':      user_dir . '/vim-plug',
         \ }
@@ -30,45 +35,48 @@ let s:env = VimrcEnvironment()
 " }}}
 
 " Plugins {{{
-let s:plugins = [
-  \ 'AndrewRadev/linediff.vim',
-  \ 'LeafCage/yankround.vim',
-  \ 'Shougo/context_filetype.vim',
-  \ 'Shougo/deoplete.nvim',
-  \ 'Shougo/neosnippet',
-  \ 'Shougo/neosnippet-snippets',
-  \ 'Shougo/vimproc.vim',
-  \ 'airblade/vim-gitgutter',
-  \ 'bronson/vim-trailing-whitespace',
-  \ 'cespare/vim-toml',
-  \ 'cocopon/iceberg.vim',
-  \ 'cocopon/vaffle.vim',
-  \ 'cohama/lexima.vim',
-  \ 'digitaltoad/vim-pug',
-  \ 'easymotion/vim-easymotion',
-  \ 'fatih/vim-go',
-  \ 'godlygeek/tabular',
-  \ 'junegunn/fzf',
-  \ 'junegunn/fzf.vim',
-  \ 'kana/vim-operator-user',
-  \ 'lilydjwg/colorizer',
-  \ 'luochen1990/rainbow',
-  \ 'osyo-manga/vim-operator-search',
-  \ 'osyo-manga/vim-precious',
-  \ 'othree/html5.vim',
-  \ 'pangloss/vim-javascript',
-  \ 'posva/vim-vue',
-  \ 'roxma/nvim-yarp',
-  \ 'roxma/vim-hug-neovim-rpc',
-  \ 'thinca/vim-quickrun',
-  \ 'tpope/vim-fugitive',
-  \ 'tpope/vim-markdown',
-  \ 'tpope/vim-surround',
-  \ 'tyru/restart.vim',
-  \ 'vim-airline/vim-airline',
-  \ 'vim-jp/vimdoc-ja',
-  \ ]
-let s:colorscheme = 'iceberg'
+function! s:plugins()
+  Plug 'AndrewRadev/linediff.vim'
+  Plug 'LeafCage/yankround.vim'
+  Plug 'Shougo/context_filetype.vim'
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'Shougo/neosnippet'
+  Plug 'Shougo/neosnippet-snippets'
+  Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+  Plug 'airblade/vim-gitgutter'
+  Plug 'bronson/vim-trailing-whitespace'
+  Plug 'cespare/vim-toml'
+  Plug 'cocopon/iceberg.vim'
+  Plug 'cocopon/vaffle.vim'
+  Plug 'cohama/lexima.vim'
+  Plug 'digitaltoad/vim-pug'
+  Plug 'easymotion/vim-easymotion'
+  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+  Plug 'godlygeek/tabular'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+  Plug 'kana/vim-operator-user'
+  Plug 'lilydjwg/colorizer', { 'for': ['css', 'vim', 'scss'] }
+  Plug 'luochen1990/rainbow'
+  Plug 'osyo-manga/vim-operator-search'
+  Plug 'osyo-manga/vim-precious'
+  Plug 'othree/html5.vim'
+  Plug 'pangloss/vim-javascript'
+  Plug 'posva/vim-vue'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+  Plug 'thinca/vim-quickrun'
+  Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-markdown'
+  Plug 'tpope/vim-surround'
+  Plug 'tyru/restart.vim'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-jp/vimdoc-ja'
+
+  let s:colorscheme = 'iceberg'
+
+  return 1
+endfunction
 " }}}
 
 " Setup {{{
@@ -114,9 +122,6 @@ function! s:install_plugin_manager()
   call s:clone_repository(
         \ 'https://github.com/junegunn/vim-plug',
         \ s:env.path.vim_plug . '/autoload')
-  call s:clone_repository(
-        \ 'https://github.com/r-hata/plug-preset.vim',
-        \ s:env.path.plug_preset)
 
   if !s:activate_plugin_manager()
     return 0
@@ -150,15 +155,7 @@ function! s:activate_plugins()
     return 0
   endif
 
-  let command = exists(':PresetPlug')
-        \ ? 'PresetPlug'
-        \ : 'Plug'
-
-  for plugin in s:plugins
-    execute printf("%s '%s'", command, plugin)
-  endfor
-
-  return 1
+  return s:plugins()
 endfunction
 
 function! s:activate_plugin_manager_internal()
@@ -169,12 +166,6 @@ function! s:activate_plugin_manager_internal()
   call plug#begin(s:env.path.plugins)
 
   try
-    " Activate PresetPlug
-    if !exists(':PresetPlug')
-      execute 'set runtimepath+=' . s:env.path.plug_preset
-    endif
-    call plug_preset#init()
-
     " Activate plugins
     return s:activate_plugins()
   finally
@@ -196,7 +187,6 @@ endfunction
 " }}}
 
 " Initialization {{{
-call s:mkdir_if_needed(s:env.path.tmp)
 call s:mkdir_if_needed(s:env.path.undo)
 let s:plugins_activated = s:activate_plugin_manager()
 " }}}
@@ -282,12 +272,12 @@ set background=dark
 
 " Cursor {{{
 if has('vim_starting')
-    " Non blink vertical bar type cursor on INSERT mode
-    let &t_SI .= "\e[6 q"
-    " Non blink block type cursor on NORMAL mode
-    let &t_EI .= "\e[2 q"
-    " Non blink underscore type cursor on REPLACE mode
-    let &t_SR .= "\e[4 q"
+  " Non blink vertical bar type cursor on INSERT mode
+  let &t_SI .= "\e[6 q"
+  " Non blink block type cursor on NORMAL mode
+  let &t_EI .= "\e[2 q"
+  " Non blink underscore type cursor on REPLACE mode
+  let &t_SR .= "\e[4 q"
 endif
 " Enable cursor across lines
 set backspace=indent,eol,start
@@ -411,6 +401,10 @@ if s:plugins_activated
           \ 'outputter/buffer/split' : ':botright 8sp',
       \ }
   \}
+
+  let g:quickrun_config.python = {
+  \   'command': 'python3'
+  \ }
 
   " Save the buffer, close the previous result and execute
   let g:quickrun_no_default_key_mappings = 1

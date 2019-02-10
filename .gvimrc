@@ -5,7 +5,7 @@ if has('gui_running')
   " Font {{{
   if s:env.is_win
     set guifont=Ricty_Diminished_Discord:h12
-  else
+  elseif s:env.is_mac
     set guifont=Ricty_Diminished_Discord:h16
   endif
   " }}}
