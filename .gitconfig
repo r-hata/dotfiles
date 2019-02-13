@@ -6,13 +6,13 @@
 [push]
 	default = simple
 [alias]
-    tr = log --graph --pretty='format:%C(yellow)%h%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset'
+	tr = log --graph --pretty='format:%C(yellow)%h%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset'
 	tree = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
-    st = status
-    logn = log --name-status
-    co = checkout
-    unstage = reset HEAD
-    dftl = difftool
+	st = status
+	logn = log --name-status
+	co = checkout
+	unstage = reset HEAD
+	dftl = difftool
 [diff]
 	tool = vimdiff
 [difftool]
