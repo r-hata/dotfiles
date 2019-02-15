@@ -404,6 +404,12 @@ if s:plugins_activated
   let g:quickrun_config.python = {
   \   'command': 'python3'
   \ }
+  let g:quickrun_config.c = {
+  \   'command': 'gcc',
+  \ }
+  let g:quickrun_config.cpp = {
+  \   'command': 'g++',
+  \ }
 
   " Save the buffer, close the previous result and execute
   let g:quickrun_no_default_key_mappings = 1
