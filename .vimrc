@@ -87,17 +87,8 @@ endfunction
 
 
 " Installation {{{
-function! s:mkdir_if_needed(dir)
-  if isdirectory(a:dir)
-    return 0
-  endif
-
-  call mkdir(a:dir, 'p')
-  return 1
-endfunction
-
 function! s:install_plugins()
-  call s:mkdir_if_needed(s:env.path.plugins)
+  call mkdir(s:env.path.plugins, 'p')
 
   if exists(':PlugInstall')
     PlugInstall
@@ -116,8 +107,8 @@ function! s:clone_repository(url, local_path)
 endfunction
 
 function! s:install_plugin_manager()
-  call s:mkdir_if_needed(s:env.path.user)
-  call s:mkdir_if_needed(s:env.path.data)
+  call mkdir(s:env.path.user, 'p')
+  call mkdir(s:env.path.data, 'p')
 
   call s:clone_repository(
         \ 'https://github.com/junegunn/vim-plug',
@@ -187,7 +178,7 @@ endfunction
 " }}}
 
 " Initialization {{{
-call s:mkdir_if_needed(s:env.path.undo)
+call mkdir(s:env.path.undo, 'p')
 let s:plugins_activated = s:activate_plugin_manager()
 " }}}
 
@@ -279,7 +270,7 @@ if has('vim_starting')
   " Non blink underscore type cursor on REPLACE mode
   let &t_SR .= "\e[4 q"
 endif
-" Enable cursor across lines
+" Enable movement across lines by moving the cursor left and right
 set backspace=indent,eol,start
 set whichwrap=b,s,h,l,<,>,[,]
 " }}}
