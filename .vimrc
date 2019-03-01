@@ -295,8 +295,8 @@ function! HexToFunc(hex)
 endfunction
 
 command!
-\   HexToFunc
-\   :%s/\(#[0-9A-F]\{6\}\)/\=HexToFunc(submatch(1))/gi
+\ HexToFunc
+\ :%s/\(#[0-9A-F]\{6\}\)/\=HexToFunc(submatch(1))/gi
 " }}}
 
 " Plugin settings {{{
@@ -327,10 +327,10 @@ if s:plugins_activated
 
   " restart.vim {{{
   command!
-  \   -bar
-  \   RestartWithSession
-  \   let g:restart_sessionoptions = 'blank,curdir,folds,help,localoptions,tabpages'
-  \   | Restart
+  \ -bar
+  \ RestartWithSession
+  \ let g:restart_sessionoptions = 'blank,curdir,folds,help,localoptions,tabpages'
+  \ | Restart
   " }}}
 
   " vim-operator-search {{{
@@ -346,26 +346,16 @@ if s:plugins_activated
   \ <SID>check_back_space() ? "\<TAB>" :
   \ deoplete#mappings#manual_complete()
   function! s:check_back_space() abort "{{{
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-  endfunction"}}}
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+  endfunction "}}}
   " }}}
 
   " neosnippet {{{
   " Plugin key-mappings.
-  " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-  " SuperTab like snippets behavior.
-  " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-  "imap <expr><TAB>
-  " \ pumvisible() ? "\<C-n>" :
-  " \ neosnippet#expandable_or_jumpable() ?
-  " \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-  smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-  \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+  imap <C-k> <Plug>(neosnippet_expand_or_jump)
+  smap <C-k> <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k> <Plug>(neosnippet_expand_target)
 
   " For conceal markers.
   if has('conceal')
