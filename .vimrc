@@ -63,12 +63,12 @@ function! s:plugins()
   Plug 'osyo-manga/vim-precious'
   Plug 'othree/html5.vim'
   Plug 'pangloss/vim-javascript'
+  Plug 'plasticboy/vim-markdown'
   Plug 'posva/vim-vue'
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
   Plug 'thinca/vim-quickrun'
   Plug 'tpope/vim-fugitive'
-  Plug 'tpope/vim-markdown'
   Plug 'tpope/vim-surround'
   Plug 'tyru/restart.vim'
   Plug 'vim-airline/vim-airline'
@@ -362,6 +362,12 @@ if s:plugins_activated
   if has('conceal')
     set conceallevel=2 concealcursor=niv
   endif
+  " }}}
+
+  " vim-markdown {{{
+  let g:vim_markdown_folding_disabled = 1
+  let g:vim_markdown_no_default_key_mappings = 1
+  let g:markdown_syntax_conceal = 0
   " }}}
 
   " Japaneseization of help doc {{{
