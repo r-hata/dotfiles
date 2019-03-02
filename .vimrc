@@ -53,7 +53,6 @@ function! s:plugins()
   Plug 'morhetz/gruvbox'
   Plug 'osyo-manga/vim-precious'
   Plug 'vim-airline/vim-airline'
-  " Plug 'luochen1990/rainbow'
   " }}}
   " Filetype {{{
   Plug 'cespare/vim-toml'
@@ -76,8 +75,10 @@ function! s:plugins()
   Plug 'junegunn/fzf.vim'
   " }}}
   " Utility {{{
+  if !has('kaoriya')
+    Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+  endif
   Plug 'LeafCage/yankround.vim'
-  Plug 'Shougo/vimproc.vim', { 'do': 'make' }
   Plug 'bronson/vim-trailing-whitespace'
   Plug 'cocopon/vaffle.vim'
   Plug 'kana/vim-operator-user'
@@ -262,7 +263,7 @@ set sidescrolloff=16
 set sidescroll=1
 set cursorline
 set list
-set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+set listchars=tab:»-,trail:_,eol:↲,extends:»,precedes:«,nbsp:%
 set laststatus=2
 set noshowmode
 " set gui colors on cui vim
