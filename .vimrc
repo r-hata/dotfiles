@@ -36,44 +36,56 @@ let s:env = VimrcEnvironment()
 
 " Plugins {{{
 function! s:plugins()
-  Plug 'AndrewRadev/linediff.vim'
-  Plug 'LeafCage/yankround.vim'
-  Plug 'Shougo/context_filetype.vim'
+  " Completion {{{
   Plug 'Shougo/deoplete.nvim'
   Plug 'Shougo/neosnippet'
   Plug 'Shougo/neosnippet-snippets'
-  Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-  Plug 'airblade/vim-gitgutter'
-  Plug 'bronson/vim-trailing-whitespace'
-  Plug 'cespare/vim-toml'
-  Plug 'cocopon/iceberg.vim'
-  Plug 'cocopon/vaffle.vim'
   Plug 'cohama/lexima.vim'
-  Plug 'dhruvasagar/vim-open-url'
-  Plug 'digitaltoad/vim-pug'
-  Plug 'easymotion/vim-easymotion'
-  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+  Plug 'tpope/vim-surround'
+  " }}}
+  " Appearance {{{
+  Plug 'Shougo/context_filetype.vim'
+  Plug 'cocopon/iceberg.vim'
   Plug 'godlygeek/tabular'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
-  Plug 'kana/vim-operator-user'
   Plug 'lilydjwg/colorizer', { 'for': ['css', 'vim', 'scss'] }
-  " Plug 'luochen1990/rainbow'
   Plug 'morhetz/gruvbox'
-  Plug 'osyo-manga/vim-operator-search'
   Plug 'osyo-manga/vim-precious'
+  Plug 'vim-airline/vim-airline'
+  " Plug 'luochen1990/rainbow'
+  " }}}
+  " Filetype {{{
+  Plug 'cespare/vim-toml'
+  Plug 'digitaltoad/vim-pug'
+  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
   Plug 'othree/html5.vim'
   Plug 'pangloss/vim-javascript'
   Plug 'plasticboy/vim-markdown'
   Plug 'posva/vim-vue'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-  Plug 'thinca/vim-quickrun'
+  " }}}
+  " Git {{{
+  Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-fugitive'
-  Plug 'tpope/vim-surround'
+  " }}}
+  " Search {{{
+  Plug 'AndrewRadev/linediff.vim'
+  Plug 'dhruvasagar/vim-open-url'
+  Plug 'easymotion/vim-easymotion'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+  " }}}
+  " Utility{{{
+  Plug 'LeafCage/yankround.vim'
+  Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+  Plug 'bronson/vim-trailing-whitespace'
+  Plug 'cocopon/vaffle.vim'
+  Plug 'kana/vim-operator-user'
+  Plug 'osyo-manga/vim-operator-search'
+  Plug 'thinca/vim-quickrun'
   Plug 'tyru/restart.vim'
-  Plug 'vim-airline/vim-airline'
   Plug 'vim-jp/vimdoc-ja'
+  " }}}
 
   let s:colorscheme = 'gruvbox'
 
