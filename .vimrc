@@ -58,7 +58,8 @@ function! s:plugins()
   Plug 'junegunn/fzf.vim'
   Plug 'kana/vim-operator-user'
   Plug 'lilydjwg/colorizer', { 'for': ['css', 'vim', 'scss'] }
-  Plug 'luochen1990/rainbow'
+  " Plug 'luochen1990/rainbow'
+  Plug 'morhetz/gruvbox'
   Plug 'osyo-manga/vim-operator-search'
   Plug 'osyo-manga/vim-precious'
   Plug 'othree/html5.vim'
@@ -74,7 +75,7 @@ function! s:plugins()
   Plug 'vim-airline/vim-airline'
   Plug 'vim-jp/vimdoc-ja'
 
-  let s:colorscheme = 'iceberg'
+  let s:colorscheme = 'gruvbox'
 
   return 1
 endfunction
@@ -324,6 +325,10 @@ if s:plugins_activated
 
   " rainbow {{{
   let g:rainbow_active = 1
+  " }}}
+
+  " gruvbox {{{
+  let g:gruvbox_contrast_dark="hard"
   " }}}
 
   " restart.vim {{{
