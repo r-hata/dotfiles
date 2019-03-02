@@ -75,7 +75,7 @@ function! s:plugins()
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   " }}}
-  " Utility{{{
+  " Utility {{{
   Plug 'LeafCage/yankround.vim'
   Plug 'Shougo/vimproc.vim', { 'do': 'make' }
   Plug 'bronson/vim-trailing-whitespace'
@@ -340,7 +340,8 @@ if s:plugins_activated
   " }}}
 
   " gruvbox {{{
-  let g:gruvbox_contrast_dark="hard"
+  let g:gruvbox_italic = 0
+  let g:gruvbox_contrast_dark = "hard"
   " }}}
 
   " restart.vim {{{
