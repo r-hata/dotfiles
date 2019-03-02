@@ -49,6 +49,7 @@ function! s:plugins()
   Plug 'cocopon/iceberg.vim'
   Plug 'cocopon/vaffle.vim'
   Plug 'cohama/lexima.vim'
+  Plug 'dhruvasagar/vim-open-url'
   Plug 'digitaltoad/vim-pug'
   Plug 'easymotion/vim-easymotion'
   Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
