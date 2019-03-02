@@ -336,10 +336,6 @@ if s:plugins_activated
   nnoremap <silent> <C-b> :Buffers<CR>
   " }}}
 
-  " rainbow {{{
-  let g:rainbow_active = 1
-  " }}}
-
   " gruvbox {{{
   let g:gruvbox_italic = 0
   let g:gruvbox_contrast_dark = "hard"
@@ -398,18 +394,18 @@ if s:plugins_activated
   " Display buffers on success, display Quickfix on failure
   " Resize result window
   let g:quickrun_config = {
-      \ '_' : {
-          \ 'runner' : 'vimproc',
-          \ 'runner/vimproc/updatetime' : 40,
-          \ 'outputter' : 'error',
-          \ 'outputter/error/success' : 'buffer',
-          \ 'outputter/error/error'   : 'quickfix',
-          \ 'outputter/buffer/split' : ':botright 8sp',
-      \ }
-  \}
+    \ '_' : {
+      \ 'runner' : 'vimproc',
+      \ 'runner/vimproc/updatetime' : 40,
+      \ 'outputter' : 'error',
+      \ 'outputter/error/success' : 'buffer',
+      \ 'outputter/error/error'   : 'quickfix',
+      \ 'outputter/buffer/split' : ':botright 8sp',
+    \ }
+  \ }
 
   let g:quickrun_config.python = {
-  \   'command': 'python3'
+    \ 'command': 'python3'
   \ }
 
   " Save the buffer, close the previous result and execute
