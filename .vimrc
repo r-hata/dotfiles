@@ -55,6 +55,7 @@ function! s:plugins()
   Plug 'vim-airline/vim-airline'
   " }}}
   " Filetype {{{
+  Plug 'NLKNguyen/c-syntax.vim'
   Plug 'cespare/vim-toml'
   Plug 'digitaltoad/vim-pug'
   Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -318,6 +319,11 @@ command!
 if s:plugins_activated
   " easymotion {{{
   map <Space><Space> <Plug>(easymotion-prefix)
+  map f <plug>(easymotion-prefix)f
+  map F <plug>(easymotion-prefix)F
+  map t <plug>(easymotion-prefix)t
+  map T <plug>(easymotion-prefix)T
+
   " }}}
 
   " yankround {{{
