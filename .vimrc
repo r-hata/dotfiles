@@ -200,12 +200,12 @@ let s:plugins_activated = s:activate_plugin_manager()
 
 " Key mapping {{{
 " In TERMINAL mode, press Esc key to go to NORMAL mode
-tnoremap <silent> <ESC> <C-\><C-n>0
+tnoremap <silent> <Esc> <C-\><C-n>0
 
 nnoremap <C-t> :tabnew<CR>
 nnoremap <silent> <CR> :nohlsearch<CR>
 inoremap <C-l> <Del>
-inoremap jj <ESC>
+inoremap jj <Esc>
 
 " tagjump
 nnoremap <C-]> g<C-]>
@@ -214,7 +214,7 @@ nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
 nnoremap <C-Left> :pop<CR>
 
 " For US keyboard
-nnoremap ; :
+noremap ; :
 " }}}
 
 " Indent {{{
@@ -386,9 +386,9 @@ if s:plugins_activated
   " }}}
 
   " vim-markdown {{{
-  let g:vim_markdown_folding_disabled = 1
+  let g:vim_markdown_folding_level = 3
   let g:vim_markdown_no_default_key_mappings = 1
-  let g:markdown_syntax_conceal = 0
+  let g:vim_markdown_conceal = 0
   " }}}
 
   " Japaneseization of help doc {{{
