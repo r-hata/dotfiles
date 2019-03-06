@@ -267,6 +267,14 @@ set list
 set listchars=tab:»-,trail:_,eol:↲,extends:»,precedes:«,nbsp:%
 set laststatus=2
 set noshowmode
+" }}}
+
+" Highlight {{{
+set synmaxcol=400
+augroup vimrc-highlight
+  autocmd!
+  autocmd Syntax * if 10000 < line('$') | syntax sync minlines=100 | endif
+augroup END
 " set gui colors on cui vim
 if exists('$TMUX')
   " Colors in tmux
@@ -430,7 +438,6 @@ endif
 " Color scheme {{{
 if s:plugins_activated
   if !has('gui_running')
-    syntax enable
     execute printf('colorscheme %s', s:colorscheme)
   else
     augroup vimrc_colorscheme
