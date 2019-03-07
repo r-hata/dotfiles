@@ -303,8 +303,7 @@ set whichwrap=b,s,h,l,<,>,[,]
 set confirm
 set autoread
 set hidden
-set visualbell t_vb=
-set noerrorbells
+set belloff=all
 set clipboard=unnamed,unnamedplus
 " Make Windows path separator slash
 set shellslash

@@ -39,7 +39,6 @@ set guioptions-=R
 set guioptions-=l
 set guioptions-=L
 set guioptions-=b
-set visualbell t_vb=
 set background=dark
 " }}}
 
