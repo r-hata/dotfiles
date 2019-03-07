@@ -177,8 +177,8 @@ function! s:activate_plugin_manager_internal()
     return s:activate_plugins()
   finally
     call plug#end()
-    filetype indent on
-    filetype plugin on
+    syntax enable
+    filetype plugin indent on
   endtry
 endfunction
 
