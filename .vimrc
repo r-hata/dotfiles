@@ -82,6 +82,7 @@ function! s:plugins()
   Plug 'LeafCage/yankround.vim'
   Plug 'bronson/vim-trailing-whitespace'
   Plug 'cocopon/vaffle.vim'
+  Plug 'haya14busa/vim-asterisk'
   Plug 'kana/vim-operator-user'
   Plug 'osyo-manga/vim-operator-search'
   Plug 'thinca/vim-quickrun'
@@ -424,6 +425,17 @@ if s:plugins_activated
   " Save the buffer, close the previous result and execute
   let g:quickrun_no_default_key_mappings = 1
   nmap <Leader>r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
+  " }}}
+
+  " vim-asterisk {{{
+  map *   <Plug>(asterisk-*)
+  map #   <Plug>(asterisk-#)
+  map g*  <Plug>(asterisk-g*)
+  map g#  <Plug>(asterisk-g#)
+  map z*  <Plug>(asterisk-z*)
+  map gz* <Plug>(asterisk-gz*)
+  map z#  <Plug>(asterisk-z#)
+  map gz# <Plug>(asterisk-gz#)
   " }}}
 endif
 " }}}
