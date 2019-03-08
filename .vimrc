@@ -358,11 +358,10 @@ command!
 if s:plugins_activated
   " easymotion {{{
   map <Space><Space> <Plug>(easymotion-prefix)
-  map f <plug>(easymotion-prefix)f
-  map F <plug>(easymotion-prefix)F
-  map t <plug>(easymotion-prefix)t
-  map T <plug>(easymotion-prefix)T
-
+  map f <Plug>(easymotion-f)
+  map F <Plug>(easymotion-F)
+  map t <Plug>(easymotion-t)
+  map T <Plug>(easymotion-T)
   " }}}
 
   " yankround {{{
