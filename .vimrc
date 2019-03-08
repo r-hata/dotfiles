@@ -200,6 +200,8 @@ let s:plugins_activated = s:activate_plugin_manager()
 " }}}
 
 " Key mapping {{{
+let mapleader = "\<Space>"
+
 " In TERMINAL mode, press Esc key to go to NORMAL mode
 tnoremap <silent> <Esc> <C-\><C-n>0
 
@@ -364,8 +366,8 @@ if s:plugins_activated
   " }}}
 
   " vim-operator-search {{{
-  nmap <Space>s <Plug>(operator-search)
-  nmap <Space>/ <Plug>(operator-search)if
+  nmap <Leader>s <Plug>(operator-search)
+  nmap <Leader>/ <Plug>(operator-search)if
   " }}}
 
   " deoplete {{{
