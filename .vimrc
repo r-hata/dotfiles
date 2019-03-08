@@ -216,8 +216,37 @@ nnoremap <C-h> :vsplit<CR> :exe("tjump ".expand('<cword>'))<CR>
 nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
 nnoremap <C-Left> :pop<CR>
 
+" windows movement
+nnoremap <Leader>wh <C-w>H
+nnoremap <Leader>wj <C-w>J
+nnoremap <Leader>wk <C-w>K
+nnoremap <Leader>wl <C-w>L
+nnoremap <Leader>wt <C-w>T
+
 " For US keyboard
 noremap ; :
+
+" Generate a tags file
+function! OutputResult(ch, exit_status)
+  if !a:exit_status
+    echomsg 'Success generating a tags file'
+  else
+    echoerr 'Failure generating a tags file'
+  endif
+endfunction
+
+function! GenerateTags()
+  let l:job = job_start(
+    \ ['ctags', '-R'],
+    \ {'exit_cb': function('OutputResult')}
+  \ )
+endfunction
+
+nnoremap <Leader>t :call GenerateTags()<CR>
+
+" Disable key mappings
+nnoremap ZZ <Nop>
+nnoremap ZQ <Nop>
 " }}}
 
 " Indent {{{
