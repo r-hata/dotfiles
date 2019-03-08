@@ -341,6 +341,7 @@ set clipboard=unnamed,unnamedplus
 set shellslash
 set wildmenu wildmode=longest,full
 set history=10000
+set lazyredraw
 " }}}
 
 " Color hex to func {{{
