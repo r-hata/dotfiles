@@ -378,6 +378,8 @@ if s:plugins_activated
   " fzf.vim {{{
   nnoremap <silent> <C-c> :FZF<CR>
   nnoremap <silent> <C-b> :Buffers<CR>
+  nnoremap <silent> q: :History:<CR>
+  nnoremap <silent> q/ :History/<CR>
   " }}}
 
   " gruvbox {{{
