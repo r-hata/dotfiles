@@ -227,7 +227,7 @@ nnoremap <Leader>wt <C-w>T
 noremap ; :
 
 " Generate a tags file
-function! OutputResult(ch, exit_status)
+function! s:output_result(ch, exit_status)
   if !a:exit_status
     echomsg 'Success generating a tags file'
   else
@@ -238,7 +238,7 @@ endfunction
 function! GenerateTags()
   let l:job = job_start(
     \ ['ctags', '-R'],
-    \ {'exit_cb': function('OutputResult')}
+    \ {'exit_cb': function('s:output_result')}
   \ )
 endfunction
 
@@ -298,7 +298,6 @@ set cursorline
 set list
 set listchars=tab:»-,trail:_,eol:↲,extends:»,precedes:«,nbsp:%
 set laststatus=2
-set noshowmode
 " }}}
 
 " Highlight {{{
@@ -385,7 +384,7 @@ if s:plugins_activated
 
   " gruvbox {{{
   let g:gruvbox_italic = 0
-  let g:gruvbox_contrast_dark = "hard"
+  let g:gruvbox_contrast_dark = 'hard'
   " }}}
 
   " restart.vim {{{
