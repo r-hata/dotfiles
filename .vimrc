@@ -77,7 +77,11 @@ function! s:plugins()
   " }}}
   " Utility {{{
   if !has('kaoriya')
-    Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+    if s:env.is_win
+      Plug 'Shougo/vimproc.vim', { 'do': 'mingw32-make' }
+    else
+      Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+    endif
   endif
   Plug 'LeafCage/yankround.vim'
   Plug 'bronson/vim-trailing-whitespace'
@@ -237,9 +241,9 @@ endfunction
 
 function! GenerateTags()
   let l:job = job_start(
-    \ ['ctags', '-R'],
-    \ {'exit_cb': function('s:output_result')}
-  \ )
+        \ ['ctags', '-R'],
+        \ {'exit_cb': function('s:output_result')}
+        \ )
 endfunction
 
 nnoremap <Leader>t :call GenerateTags()<CR>
@@ -350,8 +354,8 @@ function! HexToFunc(hex)
 endfunction
 
 command!
-\ HexToFunc
-\ :%s/\(#[0-9A-F]\{6\}\)/\=HexToFunc(submatch(1))/gi
+      \ HexToFunc
+      \ :%s/\(#[0-9A-F]\{6\}\)/\=HexToFunc(submatch(1))/gi
 " }}}
 
 " Plugin settings {{{
@@ -389,10 +393,10 @@ if s:plugins_activated
 
   " restart.vim {{{
   command!
-  \ -bar
-  \ RestartWithSession
-  \ let g:restart_sessionoptions = 'blank,curdir,folds,help,localoptions,tabpages'
-  \ | Restart
+        \ -bar
+        \ RestartWithSession
+        \ let g:restart_sessionoptions = 'blank,curdir,folds,help,localoptions,tabpages'
+        \ | Restart
   " }}}
 
   " vim-operator-search {{{
@@ -404,9 +408,9 @@ if s:plugins_activated
   let g:deoplete#enable_at_startup = 1
   call deoplete#custom#option('auto_complete', v:false)
   inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ deoplete#mappings#manual_complete()
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ deoplete#mappings#manual_complete()
   function! s:check_back_space() abort "{{{
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~? '\s'
@@ -421,12 +425,12 @@ if s:plugins_activated
 
   " For conceal markers.
   if has('conceal')
-    set conceallevel=2 concealcursor=niv
+    set conceallevel=2 concealcursor=nv
   endif
   " }}}
 
   " vim-markdown {{{
-  let g:vim_markdown_folding_level = 3
+  let g:vim_markdown_folding_disabled = 1
   let g:vim_markdown_no_default_key_mappings = 1
   let g:vim_markdown_conceal = 0
   " }}}
@@ -440,19 +444,19 @@ if s:plugins_activated
   " Display buffers on success, display Quickfix on failure
   " Resize result window
   let g:quickrun_config = {
-    \ '_' : {
-      \ 'runner' : 'vimproc',
-      \ 'runner/vimproc/updatetime' : 40,
-      \ 'outputter' : 'error',
-      \ 'outputter/error/success' : 'buffer',
-      \ 'outputter/error/error'   : 'quickfix',
-      \ 'outputter/buffer/split' : ':botright 8sp',
-    \ }
-  \ }
+        \   '_' : {
+        \   'runner' : 'vimproc',
+        \   'runner/vimproc/updatetime' : 40,
+        \   'outputter' : 'error',
+        \   'outputter/error/success' : 'buffer',
+        \   'outputter/error/error'   : 'quickfix',
+        \   'outputter/buffer/split' : ':botright 8sp',
+        \   }
+        \ }
 
   let g:quickrun_config.python = {
-    \ 'command': 'python3'
-  \ }
+        \ 'command': 'python3'
+        \ }
 
   " Save the buffer, close the previous result and execute
   let g:quickrun_no_default_key_mappings = 1
@@ -460,14 +464,14 @@ if s:plugins_activated
   " }}}
 
   " vim-asterisk {{{
-  map *   <Plug>(asterisk-*)
-  map #   <Plug>(asterisk-#)
-  map g*  <Plug>(asterisk-g*)
-  map g#  <Plug>(asterisk-g#)
-  map z*  <Plug>(asterisk-z*)
-  map gz* <Plug>(asterisk-gz*)
-  map z#  <Plug>(asterisk-z#)
-  map gz# <Plug>(asterisk-gz#)
+  map *   <Plug>(asterisk-*)N
+  map #   <Plug>(asterisk-#)N
+  map g*  <Plug>(asterisk-g*)N
+  map g#  <Plug>(asterisk-g#)N
+  map z*  <Plug>(asterisk-z*)N
+  map gz* <Plug>(asterisk-gz*)N
+  map z#  <Plug>(asterisk-z#)N
+  map gz# <Plug>(asterisk-gz#)N
   " }}}
 endif
 " }}}
