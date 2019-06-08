@@ -50,7 +50,6 @@ function! s:plugins()
   Plug 'cocopon/iceberg.vim'
   Plug 'godlygeek/tabular'
   Plug 'lilydjwg/colorizer', { 'for': ['css', 'vim', 'scss'] }
-  Plug 'morhetz/gruvbox'
   Plug 'osyo-manga/vim-precious'
   Plug 'vim-airline/vim-airline'
   " }}}
@@ -96,7 +95,7 @@ function! s:plugins()
   Plug 'vim-jp/vimdoc-ja'
   " }}}
 
-  let s:colorscheme = 'gruvbox'
+  let s:colorscheme = 'iceberg'
 
   return 1
 endfunction
@@ -386,11 +385,6 @@ if s:plugins_activated
   nnoremap <silent> <C-b> :Buffers<CR>
   nnoremap <silent> q: :History:<CR>
   nnoremap <silent> q/ :History/<CR>
-  " }}}
-
-  " gruvbox {{{
-  let g:gruvbox_italic = 0
-  let g:gruvbox_contrast_dark = 'hard'
   " }}}
 
   " restart.vim {{{
