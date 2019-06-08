@@ -275,6 +275,7 @@ augroup vimrc
   autocmd FileType zsh   setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
   autocmd FileType pug   setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
   autocmd FileType vue   setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType cpp   setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
 augroup END
 " }}}
 
