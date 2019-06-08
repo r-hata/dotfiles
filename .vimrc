@@ -37,12 +37,9 @@ let s:env = VimrcEnvironment()
 " Plugins {{{
 function! s:plugins()
   " Completion {{{
-  Plug 'Shougo/deoplete.nvim'
   Plug 'Shougo/neosnippet'
   Plug 'Shougo/neosnippet-snippets'
   Plug 'cohama/lexima.vim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
   Plug 'tpope/vim-surround'
   " }}}
   " Appearance {{{
@@ -398,21 +395,6 @@ if s:plugins_activated
   " vim-operator-search {{{
   nmap <Leader>s <Plug>(operator-search)
   nmap <Leader>/ <Plug>(operator-search)if
-  " }}}
-
-  " deoplete {{{
-  if !s:env.is_win
-    let g:deoplete#enable_at_startup = 1
-    call deoplete#custom#option('auto_complete', v:false)
-    inoremap <silent><expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ deoplete#mappings#manual_complete()
-    function! s:check_back_space() abort "{{{
-      let col = col('.') - 1
-      return !col || getline('.')[col - 1]  =~? '\s'
-    endfunction "}}}
-  endif
   " }}}
 
   " neosnippet {{{
