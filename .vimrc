@@ -264,7 +264,7 @@ set smarttab
 " }}}
 
 " File types {{{
-augroup vimrc
+augroup vimrc_filetypes
   autocmd!
   autocmd FileType html  setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
   autocmd FileType ruby  setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
@@ -308,7 +308,7 @@ set laststatus=2
 
 " Highlight {{{
 set synmaxcol=400
-augroup vimrc-highlight
+augroup vimrc_highlight
   autocmd!
   autocmd Syntax * if 10000 < line('$') | syntax sync minlines=100 | endif
 augroup END
@@ -347,6 +347,11 @@ set shellslash
 set wildmenu wildmode=longest,full
 set history=10000
 set lazyredraw
+set makeprg=g++\ -std=gnu++1y\ -O2\ -I/opt/boost/gcc/include\ -L/opt/boost/gcc/lib\ -o\ %:h/a.out\ %
+augroup vimrc_quickfix
+  autocmd!
+  autocmd QuickfixCmdPost make,*grep* cwindow
+augroup END
 " }}}
 
 " Color hex to func {{{
