@@ -15,6 +15,7 @@ function! VimrcEnvironment()
   let env.is_unix = has('unix')
   let env.is_mac = has('mac')
   let env.is_win = has('win32')
+  let env.is_nvim = has('nvim')
 
   let user_dir = env.is_win
         \ ? expand('$VIM/vimfiles')
@@ -37,7 +38,7 @@ let s:env = VimrcEnvironment()
 " Plugins {{{
 function! s:plugins()
   " Completion {{{
-  if has('nvim')
+  if s:env.is_nvim
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   endif
   Plug 'Shougo/neosnippet'
@@ -352,6 +353,11 @@ augroup vimrc_quickfix
   autocmd!
   autocmd QuickfixCmdPost make,*grep* cwindow
 augroup END
+" TERMINAL mode is opened in new split
+if s:env.is_nvim
+  command! -nargs=* T split | terminal <args>
+  command! -nargs=* VT vsplit | terminal <args>
+endif
 " }}}
 
 " Color hex to func {{{
@@ -407,7 +413,7 @@ if s:plugins_activated
   " }}}
 
   " deoplete {{{
-  if has('nvim')
+  if s:env.is_nvim
     let g:deoplete#enable_at_startup = 1
     call deoplete#custom#option('auto_complete', v:true)
     inoremap <silent><expr> <TAB>
