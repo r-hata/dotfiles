@@ -77,7 +77,7 @@ function! s:plugins()
   " Utility {{{
   if !has('kaoriya')
     if s:env.is_win
-      Plug 'Shougo/vimproc.vim', { 'do': 'mingw32-make' }
+      Plug 'Shougo/vimproc.vim', { 'do': 'mingw32-make -f make_mingw64.mak' }
     else
       Plug 'Shougo/vimproc.vim', { 'do': 'make' }
     endif
