@@ -435,7 +435,7 @@ if s:plugins_activated
 
   " For conceal markers.
   if has('conceal')
-    set conceallevel=2 concealcursor=nv
+    set conceallevel=2 concealcursor=nc
   endif
   " }}}
 
