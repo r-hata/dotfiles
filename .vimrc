@@ -250,6 +250,11 @@ endfunction
 
 nnoremap <Leader>t :call GenerateTags()<CR>
 
+" :VDsplit
+if !has('kaoriya')
+  command! -nargs=1 -complete=file VDsplit vertical diffsplit <args>
+endif
+
 " Disable key mappings
 nnoremap ZZ <Nop>
 nnoremap ZQ <Nop>
@@ -357,6 +362,10 @@ augroup END
 if s:env.is_nvim
   command! -nargs=* T split | terminal <args>
   command! -nargs=* VT vsplit | terminal <args>
+  augroup vimrc_neovim
+    autocmd!
+    autocmd TermOpen * setlocal nonumber norelativenumber
+  augroup END
 endif
 " }}}
 
