@@ -1,5 +1,5 @@
 # To use common configuration in %APPDATA%\mintty, simply remove this file
-Font=Ricty Diminished Discord
+Font=HackGen Console
 FontHeight=12
 Locale=ja_JP
 Columns=148

@@ -3,9 +3,9 @@ let s:env = VimrcEnvironment()
 
 " Font {{{
 if s:env.is_win
-  set guifont=Ricty_Diminished_Discord:h12
+  set guifont=HackGen_Console:h12
 elseif s:env.is_mac
-  set guifont=Ricty_Diminished_Discord:h16
+  set guifont=HackGen_Console:h16
 endif
 " }}}
 
