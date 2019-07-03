@@ -23,3 +23,5 @@
 	prompt = false
 [core]
 	editor = vim
+[fetch]
+	prune = true
