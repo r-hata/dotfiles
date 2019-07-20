@@ -244,10 +244,17 @@ function! s:output_result(ch, exit_status)
 endfunction
 
 function! GenerateTags()
-  let l:job = job_start(
-        \ ['ctags', '-R'],
-        \ {'exit_cb': function('s:output_result')}
-        \ )
+  if s:env.is_nvim
+    let l:job = jobstart(
+          \ ['ctags', '-R'],
+          \ {'exit_cb': function('s:output_result')}
+          \ )
+  else
+    let l:job = job_start(
+          \ ['ctags', '-R'],
+          \ {'exit_cb': function('s:output_result')}
+          \ )
+  endif
 endfunction
 
 nnoremap <Leader>t :call GenerateTags()<CR>
