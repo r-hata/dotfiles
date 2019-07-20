@@ -74,6 +74,7 @@ function! s:plugins()
   Plug 'AndrewRadev/linediff.vim'
   Plug 'dhruvasagar/vim-open-url'
   Plug 'easymotion/vim-easymotion'
+  Plug 'jsfaint/gen_tags.vim'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 't9md/vim-quickhl'
@@ -474,6 +475,11 @@ if s:plugins_activated
 
   " tags-generator {{{
   nnoremap <Leader>t :GenerateTags<CR>
+  " }}}
+
+  " gen_tags {{{
+  nnoremap <Leader>g :GenGTAGS<CR>
+  let g:gen_tags#gtags_default_map = 1
   " }}}
 endif
 " }}}
