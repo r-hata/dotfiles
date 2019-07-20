@@ -368,6 +368,8 @@ if s:env.is_nvim
     autocmd!
     autocmd TermOpen * setlocal nonumber norelativenumber
   augroup END
+else
+  command! -nargs=* VT vsplit | terminal ++curwin <args>
 endif
 " }}}
 
