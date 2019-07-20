@@ -318,7 +318,7 @@ set laststatus=2
 set synmaxcol=400
 augroup vimrc_highlight
   autocmd!
-  autocmd Syntax * if 10000 < line('$') | syntax sync minlines=100 | endif
+  autocmd Syntax * if 1000 < line('$') | syntax sync minlines=100 | endif
 augroup END
 " set gui colors on cui vim
 if exists('$TMUX')
