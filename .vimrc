@@ -510,6 +510,18 @@ endif
 if filereadable(s:env.path.local_vimrc)
   execute 'source ' . s:env.path.local_vimrc
 endif
+
+augroup vimrc_local
+  autocmd!
+  autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
+augroup END
+
+function! s:vimrc_local(loc)
+  let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
+  for i in reverse(filter(files, 'filereadable(v:val)'))
+    source `=i`
+  endfor
+endfunction
 " }}}
 
 " Color scheme {{{
