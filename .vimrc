@@ -212,7 +212,9 @@ let s:plugins_activated = s:activate_plugin_manager()
 let mapleader = "\<Space>"
 
 " In TERMINAL mode, press Esc key to go to NORMAL mode
-tnoremap <silent> <Esc> <C-\><C-n>0
+if s:env.is_nvim
+  tnoremap <silent> <Esc> <C-\><C-n>0
+endif
 
 nnoremap <C-t> :tabnew<CR>
 nnoremap <silent> <CR> :nohlsearch<CR>
