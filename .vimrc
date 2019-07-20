@@ -48,11 +48,9 @@ function! s:plugins()
   Plug 'zxqfl/tabnine-vim'
   " }}}
   " Appearance {{{
-  Plug 'Shougo/context_filetype.vim'
   Plug 'cocopon/iceberg.vim'
   Plug 'godlygeek/tabular'
   Plug 'lilydjwg/colorizer', { 'for': ['css', 'vim', 'scss'] }
-  Plug 'osyo-manga/vim-precious'
   Plug 'vim-airline/vim-airline'
   " }}}
   " Filetype {{{
