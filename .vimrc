@@ -77,6 +77,7 @@ function! s:plugins()
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 't9md/vim-quickhl'
+  Plug 'r-hata/tags-generator.vim'
   " }}}
   " Utility {{{
   if !has('kaoriya')
@@ -236,31 +237,6 @@ nnoremap <Leader>wt <C-w>T
 
 " For US keyboard
 noremap ; :
-
-" Generate a tags file
-function! s:output_result(ch, exit_status)
-  if !a:exit_status
-    echomsg 'Success generating a tags file'
-  else
-    echoerr 'Failure generating a tags file'
-  endif
-endfunction
-
-function! GenerateTags()
-  if s:env.is_nvim
-    let l:job = jobstart(
-          \ ['ctags', '-R'],
-          \ {'exit_cb': function('s:output_result')}
-          \ )
-  else
-    let l:job = job_start(
-          \ ['ctags', '-R'],
-          \ {'exit_cb': function('s:output_result')}
-          \ )
-  endif
-endfunction
-
-nnoremap <Leader>t :call GenerateTags()<CR>
 
 " :VDsplit
 if !has('kaoriya')
@@ -494,6 +470,10 @@ if s:plugins_activated
   map gz* <Plug>(asterisk-gz*)N
   map z#  <Plug>(asterisk-z#)N
   map gz# <Plug>(asterisk-gz#)N
+  " }}}
+
+  " tags-generator {{{
+  nnoremap <Leader>t :GenerateTags<CR>
   " }}}
 endif
 " }}}
