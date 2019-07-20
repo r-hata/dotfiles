@@ -77,7 +77,7 @@ function! s:plugins()
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 't9md/vim-quickhl'
-  Plug 'r-hata/tags-generator.vim'
+  Plug '~/workspace/tags-generator.vim'
   " }}}
   " Utility {{{
   if !has('kaoriya')
