@@ -50,7 +50,6 @@ function! s:plugins()
   " Appearance {{{
   Plug 'cocopon/iceberg.vim'
   Plug 'godlygeek/tabular'
-  Plug 'lilydjwg/colorizer', { 'for': ['css', 'vim', 'scss'] }
   Plug 'vim-airline/vim-airline'
   " }}}
   " Filetype {{{
