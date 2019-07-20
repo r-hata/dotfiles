@@ -45,6 +45,7 @@ function! s:plugins()
   Plug 'Shougo/neosnippet-snippets'
   Plug 'cohama/lexima.vim'
   Plug 'tpope/vim-surround'
+  Plug 'zxqfl/tabnine-vim'
   " }}}
   " Appearance {{{
   Plug 'Shougo/context_filetype.vim'
@@ -74,6 +75,7 @@ function! s:plugins()
   Plug 'easymotion/vim-easymotion'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
+  Plug 't9md/vim-quickhl'
   " }}}
   " Utility {{{
   if !has('kaoriya')
