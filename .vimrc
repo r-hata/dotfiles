@@ -49,7 +49,7 @@ function! s:plugins()
   Plug 'Shougo/neosnippet-snippets'
   Plug 'cohama/lexima.vim'
   Plug 'tpope/vim-surround'
-  Plug 'zxqfl/tabnine-vim'
+  Plug 'zchee/deoplete-clang', { 'on': ['C', 'Cpp', 'Cmake'] }
   " }}}
   " Appearance {{{
   Plug 'cocopon/iceberg.vim'
@@ -481,6 +481,12 @@ if s:plugins_activated
   let g:gen_tags#gtags_default_map = 1
   let g:gen_tags#ctags_auto_update = 1
   let g:gen_tags#gtags_auto_update = 1
+  " }}}
+
+  " deoplete-clang {{{
+  let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang.so'
+  let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
+  set completeopt-=preview
   " }}}
 endif
 " }}}
