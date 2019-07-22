@@ -474,12 +474,13 @@ if s:plugins_activated
   " }}}
 
   " tags-generator {{{
-  nnoremap <Leader>t :GenerateTags<CR>
+  let g:tags_generator#default_map = 1
   " }}}
 
   " gen_tags {{{
-  nnoremap <Leader>g :GenGTAGS<CR>
   let g:gen_tags#gtags_default_map = 1
+  let g:gen_tags#ctags_auto_update = 1
+  let g:gen_tags#gtags_auto_update = 1
   " }}}
 endif
 " }}}
