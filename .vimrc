@@ -49,7 +49,7 @@ function! s:plugins()
   Plug 'Shougo/neosnippet-snippets'
   Plug 'cohama/lexima.vim'
   Plug 'tpope/vim-surround'
-  Plug 'zxqfl/tabnine-vim'
+  Plug 'zchee/deoplete-clang', { 'on': ['C', 'Cpp', 'Cmake'] }
   " }}}
   " Appearance {{{
   Plug 'cocopon/iceberg.vim'
@@ -74,6 +74,7 @@ function! s:plugins()
   Plug 'AndrewRadev/linediff.vim'
   Plug 'dhruvasagar/vim-open-url'
   Plug 'easymotion/vim-easymotion'
+  Plug 'jsfaint/gen_tags.vim'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 't9md/vim-quickhl'
@@ -473,7 +474,15 @@ if s:plugins_activated
   " }}}
 
   " tags-generator {{{
-  nnoremap <Leader>t :GenerateTags<CR>
+  let g:tags_generator#default_map = 1
+  " }}}
+
+  " gen_tags {{{
+  let g:gen_tags#gtags_default_map = 1
+  " }}}
+
+  " deoplete-clang {{{
+  set completeopt-=preview
   " }}}
 endif
 " }}}
