@@ -479,8 +479,6 @@ if s:plugins_activated
 
   " gen_tags {{{
   let g:gen_tags#gtags_default_map = 1
-  let g:gen_tags#ctags_auto_update = 1
-  let g:gen_tags#gtags_auto_update = 1
   " }}}
 
   " deoplete-clang {{{
