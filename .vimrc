@@ -487,6 +487,10 @@ if s:plugins_activated
   " deoplete-clang {{{
   set completeopt-=preview
   " }}}
+
+  " vim-airline {{{
+  let g:airline#extensions#tabline#enabled = 1
+  " }}}
 endif
 " }}}
 
