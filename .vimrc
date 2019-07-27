@@ -4,12 +4,12 @@
 "  \ V /| | | | | | | | | (__
 " (_)_/ |_|_| |_| |_|_|  \___|
 "
-" Encoding {{{
+" Encoding: {{{
 set encoding=utf-8
 scriptencoding utf-8
 " }}}
 
-" Environment {{{
+" Environment: {{{
 function! VimrcEnvironment()
   let env = {}
   let env.is_unix = has('unix')
@@ -35,9 +35,9 @@ endfunction
 let s:env = VimrcEnvironment()
 " }}}
 
-" Plugins {{{
+" Plugins: {{{
 function! s:plugins()
-  " Completion {{{
+  " Completion: {{{
   if s:env.is_nvim
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   else
@@ -51,12 +51,12 @@ function! s:plugins()
   Plug 'tpope/vim-surround'
   Plug 'zchee/deoplete-clang', { 'on': ['C', 'Cpp', 'Cmake'] }
   " }}}
-  " Appearance {{{
+  " Appearance: {{{
   Plug 'cocopon/iceberg.vim'
   Plug 'godlygeek/tabular'
   Plug 'vim-airline/vim-airline'
   " }}}
-  " Filetype {{{
+  " Filetype: {{{
   Plug 'NLKNguyen/c-syntax.vim'
   Plug 'cespare/vim-toml'
   Plug 'digitaltoad/vim-pug'
@@ -66,11 +66,11 @@ function! s:plugins()
   Plug 'plasticboy/vim-markdown'
   Plug 'posva/vim-vue'
   " }}}
-  " Git {{{
+  " Git: {{{
   Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-fugitive'
   " }}}
-  " Search {{{
+  " Search: {{{
   Plug 'AndrewRadev/linediff.vim'
   Plug 'dhruvasagar/vim-open-url'
   Plug 'easymotion/vim-easymotion'
@@ -80,7 +80,7 @@ function! s:plugins()
   Plug 'r-hata/tags-generator.vim'
   Plug 't9md/vim-quickhl'
   " }}}
-  " Utility {{{
+  " Utility: {{{
   if !has('kaoriya')
     if s:env.is_win
       Plug 'Shougo/vimproc.vim', { 'do': 'mingw32-make -f make_mingw64.mak' }
@@ -107,14 +107,13 @@ function! s:plugins()
 endfunction
 " }}}
 
-" Setup {{{
+" Setup: {{{
 function! VimrcSetUp()
   call s:install_plugin_manager()
 endfunction
 " }}}
 
-
-" Installation {{{
+" Installation: {{{
 function! s:install_plugins()
   call mkdir(s:env.path.plugins, 'p')
 
@@ -155,8 +154,7 @@ function! s:install_plugin_manager()
 endfunction
 " }}}
 
-
-" Activation {{{
+" Activation: {{{
 function! s:load_plugin(path)
   try
     execute 'set runtimepath+=' . a:path
@@ -205,12 +203,12 @@ function! s:activate_plugin_manager()
 endfunction
 " }}}
 
-" Initialization {{{
+" Initialization: {{{
 call mkdir(s:env.path.undo, 'p')
 let s:plugins_activated = s:activate_plugin_manager()
 " }}}
 
-" Key mapping {{{
+" KeyMapping: {{{
 let mapleader = "\<Space>"
 
 " In TERMINAL mode, press Esc key to go to NORMAL mode
@@ -249,7 +247,7 @@ nnoremap ZZ <Nop>
 nnoremap ZQ <Nop>
 " }}}
 
-" Indent {{{
+" Indent: {{{
 " http://peace-pipe.blogspot.com/2006/05/vimrc-vim.html
 set tabstop=4
 set shiftwidth=4
@@ -258,7 +256,7 @@ set expandtab
 set smarttab
 " }}}
 
-" File types {{{
+" FileTypes: {{{
 augroup vimrc_filetypes
   autocmd!
   autocmd FileType html  setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
@@ -266,7 +264,7 @@ augroup vimrc_filetypes
   autocmd FileType scss  setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
   autocmd FileType css   setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
   autocmd FileType eruby setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
-  autocmd FileType vim   setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType vim   setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab foldmethod=marker
   autocmd FileType zsh   setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
   autocmd FileType pug   setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
   autocmd FileType vue   setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
@@ -274,7 +272,7 @@ augroup vimrc_filetypes
 augroup END
 " }}}
 
-" Search {{{
+" Search: {{{
 set hlsearch
 set incsearch
 set ignorecase
@@ -282,14 +280,14 @@ set smartcase
 set wrapscan
 " }}}
 
-" Backup {{{
+" Backup: {{{
 set nobackup
 set noswapfile
 let &undodir = s:env.path.undo
 set undofile
 " }}}
 
-" Appearance {{{
+" Appearance: {{{
 set number
 set ruler
 set scrolloff=8
@@ -301,14 +299,14 @@ set listchars=tab:»-,trail:_,eol:↲,extends:»,precedes:«,nbsp:%
 set laststatus=2
 " }}}
 
-" Highlight {{{
+" Highlight: {{{
 set synmaxcol=400
 " set gui colors on cui vim
 set termguicolors
 set background=dark
 " }}}
 
-" Cursor {{{
+" Cursor: {{{
 if has('vim_starting')
   " Non blink vertical bar type cursor on INSERT mode
   let &t_SI .= "\e[6 q"
@@ -322,7 +320,7 @@ set backspace=indent,eol,start
 set whichwrap=b,s,h,l,<,>,[,]
 " }}}
 
-" Misc {{{
+" Misc: {{{
 set confirm
 set autoread
 set hidden
@@ -351,7 +349,7 @@ else
 endif
 " }}}
 
-" Color hex to func {{{
+" ColorHexToFunc: {{{
 function! HexToFunc(hex)
   let color = matchlist(a:hex, '\([0-9A-F]\{2\}\)\([0-9A-F]\{2\}\)\([0-9A-F]\{2\}\)')
   return 'rgb(' . printf('%d', '0x' . color[1]) . ', ' . printf('%d', '0x' . color[2]) . ', ' . printf('%d', '0x' . color[3]) . ')'
@@ -362,9 +360,9 @@ command!
       \ :%s/\(#[0-9A-F]\{6\}\)/\=HexToFunc(submatch(1))/gi
 " }}}
 
-" Plugin settings {{{
+" PluginSettings: {{{
 if s:plugins_activated
-  " easymotion {{{
+  " easymotion: {{{
   map <Space><Space> <Plug>(easymotion-prefix)
   map f <Plug>(easymotion-f)
   map F <Plug>(easymotion-F)
@@ -372,7 +370,7 @@ if s:plugins_activated
   map T <Plug>(easymotion-T)
   " }}}
 
-  " yankround {{{
+  " yankround: {{{
   nmap p <Plug>(yankround-p)
   xmap p <Plug>(yankround-p)
   nmap P <Plug>(yankround-P)
@@ -383,14 +381,14 @@ if s:plugins_activated
   nmap <C-n> <Plug>(yankround-next)
   " }}}
 
-  " fzf.vim {{{
+  " fzf.vim: {{{
   nnoremap <silent> <C-c> :FZF<CR>
   nnoremap <silent> <C-b> :Buffers<CR>
   nnoremap <silent> q: :History:<CR>
   nnoremap <silent> q/ :History/<CR>
   " }}}
 
-  " restart.vim {{{
+  " restart.vim: {{{
   command!
         \ -bar
         \ RestartWithSession
@@ -398,12 +396,12 @@ if s:plugins_activated
         \ | Restart
   " }}}
 
-  " vim-operator-search {{{
+  " vim-operator-search: {{{
   nmap <Leader>s <Plug>(operator-search)
   nmap <Leader>/ <Plug>(operator-search)if
   " }}}
 
-  " deoplete {{{
+  " deoplete: {{{
   let g:deoplete#enable_at_startup = 1
   call deoplete#custom#option('auto_complete', v:true)
   inoremap <silent><expr> <TAB>
@@ -416,7 +414,7 @@ if s:plugins_activated
   endfunction "}}}
   " }}}
 
-  " neosnippet {{{
+  " neosnippet: {{{
   " Plugin key-mappings.
   imap <C-k> <Plug>(neosnippet_expand_or_jump)
   smap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -428,17 +426,17 @@ if s:plugins_activated
   endif
   " }}}
 
-  " vim-markdown {{{
+  " vim-markdown: {{{
   let g:vim_markdown_folding_disabled = 1
   let g:vim_markdown_no_default_key_mappings = 1
   let g:vim_markdown_conceal = 0
   " }}}
 
-  " Japaneseization of help doc {{{
+  " Japaneseization of help doc: {{{
   set helplang=ja,en
   " }}}
 
-  " quickrun {{{
+  " quickrun: {{{
   " Asynchronous execution by vimproc
   " Display buffers on success, display Quickfix on failure
   " Resize result window
@@ -462,7 +460,7 @@ if s:plugins_activated
   nmap <Leader>r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
   " }}}
 
-  " vim-asterisk {{{
+  " vim-asterisk: {{{
   map *   <Plug>(asterisk-*)N
   map #   <Plug>(asterisk-#)N
   map g*  <Plug>(asterisk-g*)N
@@ -473,28 +471,28 @@ if s:plugins_activated
   map gz# <Plug>(asterisk-gz#)N
   " }}}
 
-  " tags-generator {{{
+  " tags-generator: {{{
   let g:tags_generator#default_map = 1
   " }}}
 
-  " gtags.vim {{{
+  " gtags.vim: {{{
   nnoremap <silent> <Leader>f :Gtags -f %<CR>
   nnoremap <silent> <Leader>j :GtagsCursor<CR>
   nnoremap <silent> <Leader>d :<C-u>exe('Gtags '.expand('<cword>'))<CR>
   nnoremap <silent> <Leader>r :<C-u>exe('Gtags -r '.expand('<cword>'))<CR>
   " }}}
 
-  " deoplete-clang {{{
+  " deoplete-clang: {{{
   set completeopt-=preview
   " }}}
 
-  " vim-airline {{{
+  " vim-airline: {{{
   let g:airline#extensions#tabline#enabled = 1
   " }}}
 endif
 " }}}
 
-" Local settings {{{
+" LocalSettings: {{{
 if filereadable(s:env.path.local_vimrc)
   execute 'source ' . s:env.path.local_vimrc
 endif
@@ -512,7 +510,7 @@ function! s:vimrc_local(loc)
 endfunction
 " }}}
 
-" Color scheme {{{
+" ColorScheme: {{{
 if s:plugins_activated
   if !has('gui_running')
     execute printf('colorscheme %s', s:colorscheme)
