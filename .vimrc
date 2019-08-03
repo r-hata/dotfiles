@@ -471,10 +471,6 @@ if s:plugins_activated
   map gz# <Plug>(asterisk-gz#)N
   " }}}
 
-  " tags-generator: {{{
-  let g:tags_generator#default_map = 1
-  " }}}
-
   " gtags.vim: {{{
   nnoremap <silent> <Leader>f :Gtags -f %<CR>
   nnoremap <silent> <Leader>j :GtagsCursor<CR>
