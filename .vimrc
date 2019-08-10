@@ -74,11 +74,11 @@ function! s:plugins()
   Plug 'AndrewRadev/linediff.vim'
   Plug 'dhruvasagar/vim-open-url'
   Plug 'easymotion/vim-easymotion'
-  Plug 'lighttiger2505/gtags.vim'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 't9md/vim-quickhl'
   Plug '~/workspace/tags-generator.vim'
+  Plug '~/workspace/gtags.vim'
   " }}}
   " Utility: {{{
   if !has('kaoriya')
