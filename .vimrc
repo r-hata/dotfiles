@@ -74,10 +74,9 @@ function! s:plugins()
   Plug 'AndrewRadev/linediff.vim'
   Plug 'dhruvasagar/vim-open-url'
   Plug 'easymotion/vim-easymotion'
-  Plug 'lighttiger2505/gtags.vim'
+  Plug 'jsfaint/gen_tags.vim'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
-  Plug 'r-hata/tags-generator.vim'
   Plug 't9md/vim-quickhl'
   " }}}
   " Utility: {{{
@@ -471,11 +470,9 @@ if s:plugins_activated
   map gz# <Plug>(asterisk-gz#)N
   " }}}
 
-  " gtags.vim: {{{
-  nnoremap <silent> <Leader>f :Gtags -f %<CR>
-  nnoremap <silent> <Leader>j :GtagsCursor<CR>
-  nnoremap <silent> <Leader>d :<C-u>exe('Gtags '.expand('<cword>'))<CR>
-  nnoremap <silent> <Leader>r :<C-u>exe('Gtags -r '.expand('<cword>'))<CR>
+  " gen_tags.vim: {{{
+  let g:gen_tags#ctags_auto_update = 1
+  let g:gen_tags#gtags_default_map = 1
   " }}}
 
   " deoplete-clang: {{{
