@@ -235,6 +235,7 @@ nnoremap <Leader>wt <C-w>T
 
 " For US keyboard
 noremap ; :
+noremap : ;
 
 " :VDsplit
 if !has('kaoriya')
@@ -363,10 +364,6 @@ command!
 if s:plugins_activated
   " easymotion: {{{
   map <Space><Space> <Plug>(easymotion-prefix)
-  map f <Plug>(easymotion-f)
-  map F <Plug>(easymotion-F)
-  map t <Plug>(easymotion-t)
-  map T <Plug>(easymotion-T)
   " }}}
 
   " yankround: {{{
