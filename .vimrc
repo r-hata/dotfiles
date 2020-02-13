@@ -59,7 +59,6 @@ function! s:plugins()
   " Filetype: {{{
   Plug 'NLKNguyen/c-syntax.vim'
   Plug 'cespare/vim-toml'
-  Plug 'digitaltoad/vim-pug'
   Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
   Plug 'othree/html5.vim'
   Plug 'pangloss/vim-javascript'
@@ -74,10 +73,10 @@ function! s:plugins()
   Plug 'AndrewRadev/linediff.vim'
   Plug 'dhruvasagar/vim-open-url'
   Plug 'easymotion/vim-easymotion'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'jsfaint/gen_tags.vim'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
   Plug 'junegunn/fzf.vim'
   Plug 't9md/vim-quickhl'
-  Plug 'r-hata/gtags.vim'
   " }}}
   " Utility: {{{
   if !has('kaoriya')
