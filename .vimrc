@@ -230,7 +230,7 @@ nnoremap <Leader>wh <C-w>H
 nnoremap <Leader>wj <C-w>J
 nnoremap <Leader>wk <C-w>K
 nnoremap <Leader>wl <C-w>L
-nnoremap <Leader>wt <C-w>T
+nnoremap <silent> <Leader>wt :tab split<CR>
 
 " For US keyboard
 noremap ; :
