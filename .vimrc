@@ -340,17 +340,6 @@ else
 endif
 " }}}
 
-" ColorHexToFunc: {{{
-function! HexToFunc(hex)
-  let color = matchlist(a:hex, '\([0-9A-F]\{2\}\)\([0-9A-F]\{2\}\)\([0-9A-F]\{2\}\)')
-  return 'rgb(' . printf('%d', '0x' . color[1]) . ', ' . printf('%d', '0x' . color[2]) . ', ' . printf('%d', '0x' . color[3]) . ')'
-endfunction
-
-command!
-      \ HexToFunc
-      \ :%s/\(#[0-9A-F]\{6\}\)/\=HexToFunc(submatch(1))/gi
-" }}}
-
 " PluginSettings: {{{
 if s:plugins_activated
   " easymotion: {{{
