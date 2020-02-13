@@ -438,11 +438,8 @@ if s:plugins_activated
   map gz# <Plug>(asterisk-gz#)N
   " }}}
 
-  " gtags.vim: {{{
-  nnoremap <silent> <Leader>f :Gtags -f %<CR>
-  nnoremap <silent> <Leader>j :GtagsCursor<CR>
-  nnoremap <silent> <Leader>d :<C-u>exe('Gtags '.expand('<cword>'))<CR>
-  nnoremap <silent> <Leader>r :<C-u>exe('Gtags -r '.expand('<cword>'))<CR>
+  " gen_tags {{{
+  " let g:gen_tags#gtags_default_map = 1
   " }}}
 
   " deoplete-clang: {{{
