@@ -306,14 +306,6 @@ set background=dark
 " }}}
 
 " Cursor: {{{
-if has('vim_starting')
-  " Non blink vertical bar type cursor on INSERT mode
-  let &t_SI .= "\e[6 q"
-  " Non blink block type cursor on NORMAL mode
-  let &t_EI .= "\e[2 q"
-  " Non blink underscore type cursor on REPLACE mode
-  let &t_SR .= "\e[4 q"
-endif
 " Enable movement across lines by moving the cursor left and right
 set backspace=indent,eol,start
 set whichwrap=b,s,h,l,<,>,[,]
