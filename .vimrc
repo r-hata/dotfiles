@@ -251,23 +251,22 @@ nnoremap ZQ <Nop>
 set tabstop=4
 set shiftwidth=4
 set softtabstop=0
-set expandtab
 set smarttab
 " }}}
 
 " FileTypes: {{{
 augroup vimrc_filetypes
   autocmd!
-  autocmd FileType html  setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
-  autocmd FileType ruby  setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
-  autocmd FileType scss  setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
-  autocmd FileType css   setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
-  autocmd FileType eruby setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
-  autocmd FileType vim   setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab foldmethod=marker
-  autocmd FileType zsh   setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
-  autocmd FileType pug   setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
-  autocmd FileType vue   setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
-  autocmd FileType cpp   setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType html       setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType ruby       setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType scss       setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType css        setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType eruby      setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType vim        setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab foldmethod=marker
+  autocmd FileType zsh        setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType vue        setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType cpp        setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType javascript setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
 augroup END
 " }}}
 
