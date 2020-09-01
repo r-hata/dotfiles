@@ -74,7 +74,7 @@ function! s:plugins()
   Plug 'dhruvasagar/vim-open-url'
   Plug 'easymotion/vim-easymotion'
   Plug 'jsfaint/gen_tags.vim'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
   Plug 't9md/vim-quickhl'
   " }}}
@@ -343,6 +343,10 @@ endif
 if s:plugins_activated
   " easymotion: {{{
   map <Space><Space> <Plug>(easymotion-prefix)
+  map f <Plug>(easymotion-f)
+  map F <Plug>(easymotion-F)
+  map t <Plug>(easymotion-t)
+  map T <Plug>(easymotion-T)
   " }}}
 
   " yankround: {{{
