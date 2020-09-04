@@ -71,7 +71,6 @@ function! s:plugins()
   " }}}
   " Search: {{{
   Plug 'AndrewRadev/linediff.vim'
-  Plug 'dhruvasagar/vim-open-url'
   Plug 'easymotion/vim-easymotion'
   Plug 'jsfaint/gen_tags.vim'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
@@ -95,7 +94,6 @@ function! s:plugins()
   Plug 'thinca/vim-quickrun'
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-speeddating'
-  Plug 'tyru/restart.vim'
   Plug 'vim-jp/vimdoc-ja'
   " }}}
 
@@ -221,8 +219,22 @@ inoremap jj <Esc>
 
 " tagjump
 nnoremap <C-]> g<C-]>
-nnoremap <C-h> :vsplit<CR> :exe("tjump ".expand('<cword>'))<CR>
-nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
+
+function! TagJump()
+  try
+    if &filetype ==# 'go'
+      execute('GoDef')
+    else
+      execute('tjump '.expand('<cword>'))
+    endif
+  catch
+    " Tag file or definition not found
+    return 0
+  endtry
+endfunction
+nnoremap <C-h> :vsplit<CR> :call TagJump()<CR>
+nnoremap <C-k> :split<CR> :call TagJump()<CR>
+
 nnoremap <C-Left> :pop<CR>
 
 " windows movement
@@ -367,14 +379,6 @@ if s:plugins_activated
   nnoremap <silent> q/ :History/<CR>
   " }}}
 
-  " restart.vim: {{{
-  command!
-        \ -bar
-        \ RestartWithSession
-        \ let g:restart_sessionoptions = 'blank,curdir,folds,help,localoptions,tabpages'
-        \ | Restart
-  " }}}
-
   " vim-operator-search: {{{
   nmap <Leader>s <Plug>(operator-search)
   nmap <Leader>/ <Plug>(operator-search)if
@@ -451,6 +455,10 @@ if s:plugins_activated
 
   " vim-airline: {{{
   let g:airline#extensions#tabline#enabled = 1
+  " }}}
+
+  " vim-go: {{{
+  let g:go_fmt_command = 'goimports'
   " }}}
 endif
 " }}}
