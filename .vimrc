@@ -50,6 +50,7 @@ function! s:plugins()
   Plug 'cohama/lexima.vim'
   Plug 'tpope/vim-surround'
   Plug 'zchee/deoplete-clang', { 'on': ['C', 'Cpp', 'Cmake'] }
+  Plug 'sebastianmarkow/deoplete-rust'
   " }}}
   " Appearance: {{{
   Plug 'cocopon/iceberg.vim'
@@ -64,6 +65,7 @@ function! s:plugins()
   Plug 'pangloss/vim-javascript'
   Plug 'plasticboy/vim-markdown'
   Plug 'posva/vim-vue'
+  Plug 'rust-lang/rust.vim'
   " }}}
   " Git: {{{
   Plug 'airblade/vim-gitgutter'
@@ -380,6 +382,11 @@ if s:plugins_activated
   let g:deoplete#enable_at_startup = 1
   " }}}
 
+  " deoplete-rust {{{
+  let g:deoplete#sources#rust#racer_binary=expand('$HOME/.cargo/bin/racer')
+  let g:deoplete#sources#rust#rust_source_path=expand('$HOME/.cargo/src/rust/src')
+  " }}}
+
   " neosnippet: {{{
   " Plugin key-mappings.
   imap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -438,7 +445,7 @@ if s:plugins_activated
   " }}}
 
   " gen_tags {{{
-  " let g:gen_tags#gtags_default_map = 1
+  let g:gen_tags#gtags_default_map = 1
   " }}}
 
   " deoplete-clang: {{{
