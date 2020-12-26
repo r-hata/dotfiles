@@ -73,10 +73,9 @@ function! s:plugins()
   " }}}
   " Search: {{{
   Plug 'AndrewRadev/linediff.vim'
-  Plug 'dhruvasagar/vim-open-url'
   Plug 'easymotion/vim-easymotion'
   Plug 'jsfaint/gen_tags.vim'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
   Plug 't9md/vim-quickhl'
   " }}}
@@ -97,7 +96,6 @@ function! s:plugins()
   Plug 'thinca/vim-quickrun'
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-speeddating'
-  Plug 'tyru/restart.vim'
   Plug 'vim-jp/vimdoc-ja'
   " }}}
 
@@ -223,8 +221,22 @@ inoremap jj <Esc>
 
 " tagjump
 nnoremap <C-]> g<C-]>
-nnoremap <C-h> :vsplit<CR> :exe("tjump ".expand('<cword>'))<CR>
-nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
+
+function! TagJump()
+  try
+    if &filetype ==# 'go'
+      execute('GoDef')
+    else
+      execute('tjump '.expand('<cword>'))
+    endif
+  catch
+    " Tag file or definition not found
+    return 0
+  endtry
+endfunction
+nnoremap <C-h> :vsplit<CR> :call TagJump()<CR>
+nnoremap <C-k> :split<CR> :call TagJump()<CR>
+
 nnoremap <C-Left> :pop<CR>
 
 " windows movement
@@ -345,6 +357,10 @@ endif
 if s:plugins_activated
   " easymotion: {{{
   map <Space><Space> <Plug>(easymotion-prefix)
+  map f <Plug>(easymotion-f)
+  map F <Plug>(easymotion-F)
+  map t <Plug>(easymotion-t)
+  map T <Plug>(easymotion-T)
   " }}}
 
   " yankround: {{{
@@ -363,14 +379,6 @@ if s:plugins_activated
   nnoremap <silent> <C-b> :Buffers<CR>
   nnoremap <silent> q: :History:<CR>
   nnoremap <silent> q/ :History/<CR>
-  " }}}
-
-  " restart.vim: {{{
-  command!
-        \ -bar
-        \ RestartWithSession
-        \ let g:restart_sessionoptions = 'blank,curdir,folds,help,localoptions,tabpages'
-        \ | Restart
   " }}}
 
   " vim-operator-search: {{{
@@ -454,6 +462,10 @@ if s:plugins_activated
 
   " vim-airline: {{{
   let g:airline#extensions#tabline#enabled = 1
+  " }}}
+
+  " vim-go: {{{
+  let g:go_fmt_command = 'goimports'
   " }}}
 endif
 " }}}
