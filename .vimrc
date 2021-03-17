@@ -345,6 +345,8 @@ if s:env.is_nvim
   augroup vimrc_neovim
     autocmd!
     autocmd TermOpen * setlocal nonumber norelativenumber
+    autocmd TermOpen * startinsert
+    autocmd WinEnter * if &buftype ==# 'terminal' | startinsert | endif
   augroup END
 else
   command! -nargs=* VT vsplit | terminal ++curwin <args>
