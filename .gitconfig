@@ -25,3 +25,5 @@
 	editor = vim
 [fetch]
 	prune = true
+[pull]
+	rebase = false
