@@ -48,6 +48,7 @@ function! s:plugins()
   Plug 'Shougo/neosnippet'
   Plug 'Shougo/neosnippet-snippets'
   Plug 'cohama/lexima.vim'
+  Plug 'sebastianmarkow/deoplete-rust'
   Plug 'tpope/vim-surround'
   Plug 'zchee/deoplete-clang', { 'on': ['C', 'Cpp', 'Cmake'] }
   " }}}
@@ -64,6 +65,7 @@ function! s:plugins()
   Plug 'pangloss/vim-javascript'
   Plug 'plasticboy/vim-markdown'
   Plug 'posva/vim-vue'
+  Plug 'rust-lang/rust.vim'
   " }}}
   " Git: {{{
   Plug 'airblade/vim-gitgutter'
@@ -461,6 +463,11 @@ if s:plugins_activated
 
   " vim-go: {{{
   let g:go_fmt_command = 'goimports'
+  " }}}
+
+  " rust.vim: {{{
+  let g:rustfmt_autosave = 1
+  let g:deoplete#sources#rust#show_duplicates=1
   " }}}
 endif
 " }}}
