@@ -48,9 +48,9 @@ function! s:plugins()
   Plug 'Shougo/neosnippet'
   Plug 'Shougo/neosnippet-snippets'
   Plug 'cohama/lexima.vim'
-  Plug 'sebastianmarkow/deoplete-rust'
+  Plug 'mattn/vim-lsp-settings'
+  Plug 'prabirshrestha/vim-lsp'
   Plug 'tpope/vim-surround'
-  Plug 'zchee/deoplete-clang', { 'on': ['C', 'Cpp', 'Cmake'] }
   " }}}
   " Appearance: {{{
   Plug 'cocopon/iceberg.vim'
@@ -74,7 +74,6 @@ function! s:plugins()
   " Search: {{{
   Plug 'AndrewRadev/linediff.vim'
   Plug 'easymotion/vim-easymotion'
-  Plug 'jsfaint/gen_tags.vim'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
   Plug 't9md/vim-quickhl'
@@ -214,30 +213,36 @@ if s:env.is_nvim
   tnoremap <silent> <Esc> <C-\><C-n>0
 endif
 
-nnoremap <C-t> :tabnew<CR>
-nnoremap <silent> <CR> :nohlsearch<CR>
+nnoremap <silent> <C-h> :nohlsearch<CR>
 inoremap <C-l> <Del>
 inoremap jj <Esc>
 
-" tagjump
-nnoremap <C-]> g<C-]>
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> gs <plug>(lsp-document-symbol-search)
+  nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+  nmap <buffer> gr <plug>(lsp-references)
+  nmap <buffer> gi <plug>(lsp-implementation)
+  nmap <buffer> <leader>rn <plug>(lsp-rename)
+  nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+  nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+  inoremap <buffer> <expr><c-f> lsp#scroll(+4)
+  inoremap <buffer> <expr><c-d> lsp#scroll(-4)
 
-function! TagJump()
-  try
-    if &filetype ==# 'go'
-      execute('GoDef')
-    else
-      execute('tjump '.expand('<cword>'))
-    endif
-  catch
-    " Tag file or definition not found
-    return 0
-  endtry
+  let g:lsp_format_sync_timeout = 1000
+  augroup on_lsp_buffer_enabled
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+  augroup END
 endfunction
-nnoremap <C-h> :vsplit<CR> :call TagJump()<CR>
-nnoremap <C-k> :split<CR> :call TagJump()<CR>
 
-nnoremap <C-Left> :pop<CR>
+augroup lsp_install
+  autocmd!
+  " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 
 " windows movement
 nnoremap <Leader>wh <C-w>H
@@ -390,6 +395,7 @@ if s:plugins_activated
 
   " deoplete: {{{
   let g:deoplete#enable_at_startup = 1
+  set completeopt-=preview
   " }}}
 
   " neosnippet: {{{
@@ -447,14 +453,6 @@ if s:plugins_activated
   map gz* <Plug>(asterisk-gz*)N
   map z#  <Plug>(asterisk-z#)N
   map gz# <Plug>(asterisk-gz#)N
-  " }}}
-
-  " gen_tags {{{
-  " let g:gen_tags#gtags_default_map = 1
-  " }}}
-
-  " deoplete-clang: {{{
-  set completeopt-=preview
   " }}}
 
   " vim-airline: {{{
