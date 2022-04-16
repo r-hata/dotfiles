@@ -456,6 +456,7 @@ if s:plugins_activated
   " }}}
 
   " vim-airline: {{{
+  let g:airline_symbols_ascii = 1
   let g:airline#extensions#tabline#enabled = 1
   " }}}
 
