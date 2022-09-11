@@ -38,19 +38,20 @@ let s:env = VimrcEnvironment()
 " Plugins: {{{
 function! s:plugins()
   " Completion: {{{
-  if s:env.is_nvim
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  else
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-  endif
+  Plug 'LumaKernel/ddc-file'
+  Plug 'Shougo/ddc-around'
+  Plug 'Shougo/ddc-converter_remove_overlap'
+  Plug 'Shougo/ddc-matcher_head'
+  Plug 'Shougo/ddc-sorter_rank'
+  Plug 'Shougo/ddc.vim'
   Plug 'Shougo/neosnippet'
   Plug 'Shougo/neosnippet-snippets'
   Plug 'cohama/lexima.vim'
   Plug 'mattn/vim-lsp-settings'
   Plug 'prabirshrestha/vim-lsp'
+  Plug 'shun/ddc-vim-lsp'
   Plug 'tpope/vim-surround'
+  Plug 'vim-denops/denops.vim'
   " }}}
   " Appearance: {{{
   Plug 'cocopon/iceberg.vim'
@@ -66,6 +67,7 @@ function! s:plugins()
   Plug 'plasticboy/vim-markdown'
   Plug 'posva/vim-vue'
   Plug 'rust-lang/rust.vim'
+  Plug 'ziglang/zig.vim'
   " }}}
   " Git: {{{
   Plug 'airblade/vim-gitgutter'
@@ -393,9 +395,37 @@ if s:plugins_activated
   nmap <Leader>/ <Plug>(operator-search)if
   " }}}
 
-  " deoplete: {{{
-  let g:deoplete#enable_at_startup = 1
-  set completeopt-=preview
+  " ddc.vim: {{{
+  call ddc#custom#patch_global('sources', [
+        \ 'around',
+        \ 'vim-lsp',
+        \ 'file'
+        \ ])
+
+  call ddc#custom#patch_global('sourceOptions', {
+        \ '_': {
+        \   'matchers': ['matcher_head'],
+        \   'sorters': ['sorter_rank'],
+        \   'converters': ['converter_remove_overlap'],
+        \ },
+        \ 'around': {'mark': 'A'},
+        \ 'vim-lsp': {
+        \   'mark': 'lsp',
+        \   'matchers': ['matcher_head'],
+        \   'forceCompletionPattern': '\.|:|->|"\w+/*'
+        \ },
+        \ 'file': {
+        \   'mark': 'file',
+        \   'isVolatile': v:true,
+        \   'forceCompletionPattern': '\S/\S*'
+        \ }})
+
+  call ddc#custom#patch_global('autoCompleteEvents', [
+        \ 'InsertEnter', 'TextChangedI', 'TextChangedP',
+        \ 'CmdlineEnter', 'CmdlineChanged',
+        \ ])
+
+  call ddc#enable()
   " }}}
 
   " neosnippet: {{{
@@ -466,7 +496,6 @@ if s:plugins_activated
 
   " rust.vim: {{{
   let g:rustfmt_autosave = 1
-  let g:deoplete#sources#rust#show_duplicates=1
   " }}}
 endif
 " }}}
