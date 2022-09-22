@@ -286,6 +286,7 @@ augroup vimrc_filetypes
   autocmd FileType vim        setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab foldmethod=marker
   autocmd FileType zsh        setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
   autocmd FileType vue        setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType c          setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
   autocmd FileType cpp        setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
   autocmd FileType javascript setlocal softtabstop=0 shiftwidth=2 tabstop=2 expandtab
 augroup END
@@ -492,6 +493,9 @@ if s:plugins_activated
 
   " vim-go: {{{
   let g:go_fmt_command = 'goimports'
+  let g:go_highlight_operators = 1
+  let g:go_highlight_functions = 1
+  let g:go_highlight_function_calls = 1
   " }}}
 
   " rust.vim: {{{
