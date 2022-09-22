@@ -23,7 +23,13 @@
 	prompt = false
 [core]
 	editor = vim
+	pager = delta
 [fetch]
 	prune = true
 [pull]
 	rebase = false
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	light = false
