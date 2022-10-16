@@ -2,9 +2,9 @@
 
 ## Setup
 
-```
-$ git clone https://github.com/r-hata/dotfiles.git "$HOME/.dotfiles"
-$ ~/.dotfiles/setup.sh
+```sh
+git clone https://github.com/r-hata/dotfiles.git "$HOME/.dotfiles"
+~/.dotfiles/setup.sh
 ```
 
 ## Reference
