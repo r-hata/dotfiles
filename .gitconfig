@@ -33,3 +33,5 @@
 [delta]
 	navigate = true
 	light = false
+[init]
+	defaultBranch = main
