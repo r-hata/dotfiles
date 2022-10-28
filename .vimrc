@@ -38,20 +38,28 @@ let s:env = VimrcEnvironment()
 " Plugins: {{{
 function! s:plugins()
   " Completion: {{{
+  Plug 'Shougo/ddc.vim'
+  Plug 'vim-denops/denops.vim'
+
+  " Install your UIs
+  Plug 'Shougo/ddc-ui-native'
+
+  " Install your sources
   Plug 'LumaKernel/ddc-file'
-  Plug 'Shougo/ddc-around'
+  Plug 'Shougo/ddc-source-around'
+  Plug 'shun/ddc-vim-lsp'
+
+  " Install your filters
   Plug 'Shougo/ddc-converter_remove_overlap'
   Plug 'Shougo/ddc-matcher_head'
   Plug 'Shougo/ddc-sorter_rank'
-  Plug 'Shougo/ddc.vim'
+
   Plug 'Shougo/neosnippet'
   Plug 'Shougo/neosnippet-snippets'
   Plug 'cohama/lexima.vim'
   Plug 'mattn/vim-lsp-settings'
   Plug 'prabirshrestha/vim-lsp'
-  Plug 'shun/ddc-vim-lsp'
   Plug 'tpope/vim-surround'
-  Plug 'vim-denops/denops.vim'
   " }}}
   " Appearance: {{{
   Plug 'cocopon/iceberg.vim'
@@ -397,6 +405,8 @@ if s:plugins_activated
   " }}}
 
   " ddc.vim: {{{
+  call ddc#custom#patch_global('ui', 'native')
+
   call ddc#custom#patch_global('sources', [
         \ 'around',
         \ 'vim-lsp',
@@ -409,12 +419,12 @@ if s:plugins_activated
         \   'sorters': ['sorter_rank'],
         \   'converters': ['converter_remove_overlap'],
         \ },
-        \ 'around': {'mark': 'A'},
         \ 'vim-lsp': {
         \   'mark': 'lsp',
         \   'matchers': ['matcher_head'],
         \   'forceCompletionPattern': '\.|:|->|"\w+/*'
         \ },
+        \ 'around': {'mark': 'A'},
         \ 'file': {
         \   'mark': 'file',
         \   'isVolatile': v:true,
