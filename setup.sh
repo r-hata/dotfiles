@@ -7,8 +7,11 @@ ln -sf $REPOSITORY_DIR/.vimrc $HOME/.vimrc
 ln -sf $REPOSITORY_DIR/.gvimrc $HOME/.gvimrc
 ln -sf $REPOSITORY_DIR/.tmux.conf $HOME/.tmux.conf
 
-NVIM_CONFIG_DIR=$HOME/.config/nvim
-if [ ! -d ${NVIM_CONFIG_DIR} ]; then
-    mkdir -p $NVIM_CONFIG_DIR
+ASTRO_NVIM_DIR=$HOME/.config/nvim/lua
+if [ ! -d ${ASTRO_NVIM_DIR} ]; then
+    mkdir -p $ASTRO_NVIM_DIR
 fi
-ln -sf $REPOSITORY_DIR/.vimrc $NVIM_CONFIG_DIR/init.vim
+if [ -d ${ASTRO_NVIM_DIR}/user ]; then
+    rm -rf ${ASTRO_NVIM_DIR}/user
+fi
+ln -sf $REPOSITORY_DIR/astronvim_config $ASTRO_NVIM_DIR/user
