@@ -431,11 +431,6 @@ if s:plugins_activated
         \   'forceCompletionPattern': '\S/\S*'
         \ }})
 
-  call ddc#custom#patch_global('autoCompleteEvents', [
-        \ 'InsertEnter', 'TextChangedI', 'TextChangedP',
-        \ 'CmdlineEnter', 'CmdlineChanged',
-        \ ])
-
   call ddc#enable()
   " }}}
 
