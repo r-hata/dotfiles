@@ -5,7 +5,6 @@ REPOSITORY_DIR=$(cd $(dirname $0); pwd)
 ln -sf $REPOSITORY_DIR/.gitconfig $HOME/.gitconfig
 ln -sf $REPOSITORY_DIR/.vimrc $HOME/.vimrc
 ln -sf $REPOSITORY_DIR/.gvimrc $HOME/.gvimrc
-ln -sf $REPOSITORY_DIR/.tmux.conf $HOME/.tmux.conf
 
 ASTRO_NVIM_DIR=$HOME/.config/nvim/lua
 if [ ! -d ${ASTRO_NVIM_DIR} ]; then
