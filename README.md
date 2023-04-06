@@ -3,7 +3,7 @@
 ## Setup
 
 ```console
-git clone https://github.com/r-hata/dotfiles.git "$HOME/.dotfiles" && ~/.dotfiles/setup.sh
+git clone --recursive https://github.com/r-hata/dotfiles.git "$HOME/.dotfiles" && ~/.dotfiles/setup.sh
 ```
 
 ## Reference
