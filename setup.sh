@@ -9,7 +9,14 @@ ln $LN_OPTION $REPOSITORY_DIR/.gitconfig $HOME/.gitconfig
 ln $LN_OPTION $REPOSITORY_DIR/.vimrc $HOME/.vimrc
 ln $LN_OPTION $REPOSITORY_DIR/.gvimrc $HOME/.gvimrc
 
-ASTRO_NVIM_DIR=$HOME/.config/nvim/lua
+DOT_CONFIG_DIR=$HOME/.config
+LAZYGIT_DIR=$DOT_CONFIG_DIR/lazygit
+if [ ! -d ${LAZYGIT_DIR} ]; then
+    mkdir -p $LAZYGIT_DIR
+fi
+ln $LN_OPTION $REPOSITORY_DIR/lazygit/config.yml $LAZYGIT_DIR/config.yml
+
+ASTRO_NVIM_DIR=$DOT_CONFIG_DIR/nvim/lua
 if [ ! -d ${ASTRO_NVIM_DIR} ]; then
     mkdir -p $ASTRO_NVIM_DIR
 fi
