@@ -14,15 +14,15 @@
 	unstage = reset HEAD
 	dftl = difftool
 [diff]
-	tool = vimdiff
+	tool = nvim
 [difftool]
 	prompt = false
 [merge]
-	tool = vimdiff
+	tool = nvim
 [mergetool]
 	prompt = false
 [core]
-	editor = vim
+	editor = nvim
 	pager = delta
 [fetch]
 	prune = true
