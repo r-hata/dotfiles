@@ -18,6 +18,11 @@ if [ ! -d "${LAZYGIT_DIR}" ]; then
 	mkdir -p "$LAZYGIT_DIR"
 fi
 ln "$LN_OPTION" "$REPOSITORY_DIR"/lazygit/config.yml "$LAZYGIT_DIR"/config.yml
+FISH_DIR=$DOT_CONFIG_DIR/fish
+if [ ! -d "${FISH_DIR}" ]; then
+	mkdir -p "$FISH_DIR"
+fi
+ln "$LN_OPTION" "$REPOSITORY_DIR"/fish/config.fish "$FISH_DIR"
 
 ASTRO_NVIM_DIR=$DOT_CONFIG_DIR/nvim/lua
 if [ ! -d "${ASTRO_NVIM_DIR}" ]; then
