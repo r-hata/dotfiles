@@ -7,7 +7,7 @@ end
 # Install fisher plugins
 # fisher install pure-fish/pure
 # fisher install edc/bass
-# fisher install jorgebucaran/nvm.fish
+# fisher install FabioAntunes/fish-nvm
 # fisher install rbenv/fish-rbenv
 # fisher install halostatue/fish-rust
 
@@ -55,4 +55,9 @@ if command -sq fd
 else if command -sq rg
   set -gx FZF_DEFAULT_COMMAND "rg --files --follow --hidden --glob '!**/.git/*' 2>/dev/null"
   set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+end
+
+# nvm
+if test -d "$HOME/.nvm"
+  set -gx NVM_DIR "$HOME/.nvm"
 end
