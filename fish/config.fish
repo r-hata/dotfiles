@@ -15,17 +15,17 @@ end
 # PATH settings
 # ---------------------------------------
 # Initialize linuxbrew
-if test "/home/linuxbrew"
+if test -d "/home/linuxbrew"
   eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 end
 
 # Initialize golang
-if test "$HOME/go"
+if test -d "$HOME/go"
   fish_add_path $HOME/go/bin
 end
 
 # Add ~/.local/bin to PATH
-if test "$HOME/.local/bin"
+if test -d "$HOME/.local/bin"
   fish_add_path $HOME/.local/bin
 end
 
