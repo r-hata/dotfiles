@@ -9,6 +9,8 @@ if status is-interactive
   # fisher install FabioAntunes/fish-nvm
   # fisher install rbenv/fish-rbenv
   # fisher install halostatue/fish-rust
+  # fisher install jethrokuan/fzf
+  # fisher install jethrokuan/z
 
   # ---------------------------------------
   # PATH settings
@@ -19,14 +21,10 @@ if status is-interactive
   end
 
   # Initialize golang
-  if test -d "$HOME/go"
-    fish_add_path $HOME/go/bin
-  end
+  fish_add_path $HOME/go/bin
 
   # Add ~/.local/bin to PATH
-  if test -d "$HOME/.local/bin"
-    fish_add_path $HOME/.local/bin
-  end
+  fish_add_path $HOME/.local/bin
 
   # ---------------------------------------
   # Alias settings
@@ -50,12 +48,12 @@ if status is-interactive
   # Install fzf
   # brew install fzf
   # (brew --prefix)/opt/fzf/install
+  set -U FZF_LEGACY_KEYBINDINGS 0
+  set -U FZF_REVERSE_ISEARCH_OPTS "--reverse"
   if command -sq fd
-    set -gx FZF_DEFAULT_COMMAND "fd --type f --follow --hidden --exclude '**/.git/*' 2>/dev/null"
-    set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+    set -U FZF_FIND_FILE_COMMAND "fd --type f --follow --hidden --exclude '**/.git/*' 2>/dev/null"
   else if command -sq rg
-    set -gx FZF_DEFAULT_COMMAND "rg --files --follow --hidden --glob '!**/.git/*' 2>/dev/null"
-    set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+    set -U FZF_FIND_FILE_COMMAND "rg --files --follow --hidden --glob '!**/.git/*' 2>/dev/null"
   end
 
   # nvm
