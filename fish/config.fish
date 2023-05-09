@@ -33,13 +33,15 @@ if status is-interactive
   # ---------------------------------------
   # ls
   if command -sq exa
-    alias l='exa --icons -1a'
     alias ls='exa --icons'
-    alias ll='exa --icons -lh'
-    alias la='exa --icons -lha'
+    set allopt 'a'
   else
     alias ls='ls --color=auto -F'
+    set allopt 'A'
   end
+  alias l="ls -1$allopt"
+  alias ll="ls -lh"
+  alias la="ls -lh$allopt"
 
   # ---------------------------------------
   # Plugin settings
