@@ -61,4 +61,9 @@ if status is-interactive
   if test -d "$HOME/.nvm"
     set -gx NVM_DIR "$HOME/.nvm"
   end
+
+  # conda initialize
+  if command -sq conda
+    eval conda "shell.fish" "hook" $argv | source
+  end
 end
