@@ -40,6 +40,7 @@ if status is-interactive
   alias l="ls -1$allopt"
   alias ll="ls -lh"
   alias la="ls -lh$allopt"
+  alias rm="rm -i"
 
   # ---------------------------------------
   # Plugin settings
