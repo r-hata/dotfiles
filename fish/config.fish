@@ -26,6 +26,12 @@ if status is-interactive
   # Add ~/.local/bin to PATH
   fish_add_path $HOME/.local/bin
 
+  # pyenv
+  if command -sq pyenv
+    set -gx PYENV_ROOT $HOME/.pyenv
+    pyenv init - | source
+  end
+
   # ---------------------------------------
   # Alias settings
   # ---------------------------------------
