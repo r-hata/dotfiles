@@ -36,8 +36,8 @@ if status is-interactive
   # Alias settings
   # ---------------------------------------
   # ls
-  if command -sq exa
-    alias ls='exa --icons'
+  if command -sq eza
+    alias ls='eza --icons'
     set allopt 'a'
   else
     alias ls='ls --color=auto -F'
