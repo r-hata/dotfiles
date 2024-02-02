@@ -9,8 +9,6 @@ REPOSITORY_DIR=$(
 )
 
 ln "$LN_OPTION" "$REPOSITORY_DIR"/.gitconfig "$HOME"/.gitconfig
-ln "$LN_OPTION" "$REPOSITORY_DIR"/.vimrc "$HOME"/.vi
-ln "$LN_OPTION" "$REPOSITORY_DIR"/.gvimrc "$HOME"/.gvimrc
 
 DOT_CONFIG_DIR=$HOME/.config
 LAZYGIT_DIR=$DOT_CONFIG_DIR/lazygit
