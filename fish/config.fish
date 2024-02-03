@@ -56,6 +56,7 @@ if status is-interactive
   # brew install fzf
   # (brew --prefix)/opt/fzf/install
   set -U FZF_LEGACY_KEYBINDINGS 0
+  set -U EDITOR "nvim"
   set -U FZF_REVERSE_ISEARCH_OPTS "--reverse"
   if command -sq fd
     set -U FZF_FIND_FILE_COMMAND "fd --type f --follow --hidden --exclude '**/.git/*' 2>/dev/null"
