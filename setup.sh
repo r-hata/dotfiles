@@ -22,15 +22,5 @@ if [ ! -d "${FISH_DIR}" ]; then
 fi
 ln "$LN_OPTION" "$REPOSITORY_DIR"/fish/config.fish "$FISH_DIR"
 
-ASTRO_NVIM_DIR=$DOT_CONFIG_DIR/nvim/lua
-if [ ! -d "${ASTRO_NVIM_DIR}" ]; then
-	mkdir -p "$ASTRO_NVIM_DIR"
-fi
-if [ -d "${ASTRO_NVIM_DIR}"/user ]; then
-	if [ "$OPTION" != "f" ]; then
-		read -r -p "overwrite '${ASTRO_NVIM_DIR}/user'? (y/N): " yn
-		case "$yn" in [yY]*) ;; *) exit ;; esac
-	fi
-	rm -rf "${ASTRO_NVIM_DIR}"/user
-fi
-ln "$LN_OPTION" "$REPOSITORY_DIR"/astronvim_config "$ASTRO_NVIM_DIR"/user
+NVIM_DIR=$DOT_CONFIG_DIR/nvim
+ln "$LN_OPTION" "$REPOSITORY_DIR"/astronvim_config "$NVIM_DIR"
