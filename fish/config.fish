@@ -6,7 +6,7 @@ if status is-interactive
   # Install fisher plugins
   # fisher install pure-fish/pure
   # fisher install edc/bass
-  # fisher install FabioAntunes/fish-nvm
+  # fisher install jorgebucaran/nvm.fish
   # fisher install rbenv/fish-rbenv
   # fisher install halostatue/fish-rust
   # fisher install jethrokuan/fzf
@@ -67,7 +67,8 @@ if status is-interactive
   end
 
   # nvm
-  if test -d "$HOME/.nvm"
-    set -gx NVM_DIR "$HOME/.nvm"
+  if test -d "$HOME/.local/share/nvm"
+    nvm -s use lts
+    set --universal nvm_default_packages pnpm
   end
 end
