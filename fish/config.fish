@@ -40,14 +40,12 @@ if status is-interactive
   # ls
   if command -sq eza
     alias ls='eza --icons'
-    set allopt 'a'
   else
     alias ls='ls --color=auto -F'
-    set allopt 'A'
   end
-  alias l="ls -1$allopt"
+  alias l="ls -1A"
   alias ll="ls -lh"
-  alias la="ls -lh$allopt"
+  alias la="ls -lhA"
   alias rm="rm -i"
 
   # ---------------------------------------
