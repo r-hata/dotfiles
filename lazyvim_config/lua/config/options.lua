@@ -3,7 +3,6 @@
 -- Add any additional options here
 vim.g.snacks_animate = false
 vim.opt.mouse = ""
-vim.keymap.set("i", "jj", "<Esc>")
 vim.g.python3_host_prog = (function()
   local python3_path = os.getenv("HOME") .. "/.venv/bin/python3"
   if vim.fn.filereadable(python3_path) == 0 then
