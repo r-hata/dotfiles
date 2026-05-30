@@ -7,8 +7,7 @@ if status is-interactive
   # fisher install pure-fish/pure
   # fisher install edc/bass
   # fisher install jorgebucaran/nvm.fish
-  # fisher install rbenv/fish-rbenv
-  # fisher install halostatue/fish-rust
+  # fisher install halostatue/fish-rust@v2
   # fisher install jethrokuan/fzf
   # fisher install jethrokuan/z
 
