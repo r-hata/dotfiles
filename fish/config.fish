@@ -38,7 +38,7 @@ if status is-interactive
   # ---------------------------------------
   # ls
   if command -sq eza
-    alias ls='eza --icons'
+    alias ls='eza --icons=auto'
   else
     alias ls='ls --color=auto -F'
   end
